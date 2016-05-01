@@ -4,14 +4,14 @@ PT Prigoda
 Assignment Zero
 */
 
-public class Node implements java.io.Serializable{
+public class customerNode implements java.io.Serializable{
 	private String name;
 	private int credit;
 	private String mail;
 	private Node next;
 	private Wishlist wishlist;
 	
-	public Node(String name0, int credit0, String mail0){
+	public customerNode(String name0, int credit0, String mail0){
 		name = name0;
 		credit = credit0;
 		mail = mail0;
