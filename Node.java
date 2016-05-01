@@ -9,6 +9,7 @@ public class Node implements java.io.Serializable{
 	private int credit;
 	private String mail;
 	private Node next;
+	private Wishlist wishlist;
 	
 	public Node(String name0, int credit0, String mail0){
 		name = name0;
