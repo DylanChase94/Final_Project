@@ -1,6 +1,6 @@
 //movie node
 
-public class mNode {
+public class mNode implements java.io.Serializable{
 	private String title;
 	private int release;
 	private int code;
