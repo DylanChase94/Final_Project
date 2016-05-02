@@ -10,6 +10,8 @@ public class CustomerNode implements java.io.Serializable{
 	private String mail;
 	private Node next;
 	private Wishlist wishlist;
+	private Node left;
+	private Node right;
 	
 	public CustomerNode(String name0, int credit0, String mail0){
 		name = name0;
@@ -52,4 +54,21 @@ public class CustomerNode implements java.io.Serializable{
 	public void setMail(String mail0){
 		mail = mail0;
 	}
+	
+	public Node getRight(){
+	return right;
+	}
+
+	public Node getLeft(){
+		return left;
+	}
+	
+	public void setRight(Node newRight){
+		right=newRight;
+	}
+	
+	public void setLeft(Node newLeft){
+		left=newLeft;
+	}
+	
 }
