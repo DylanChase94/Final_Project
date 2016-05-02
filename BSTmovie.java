@@ -272,20 +272,4 @@ public class BSTmovie {
 	}
 }
 		
-			
-		
-		
-				
-		
-			
-		
-			
-			
-			
-			
-			
-			
-
-	
-		
 	
