@@ -4,15 +4,15 @@
 
 public class BSTmovie {
 	//instace variables
-	private CustomerNode root;
+	private MNode root;
 
-	private CustomerNode s;
+	private MNode s;
 
-	private CustomerNode f;
+	private MNode f;
 
-	private CustomerNode p;
+	private MNode p;
 
-	private CustomerNode t;
+	private MNode t;
 
 
 	
@@ -27,14 +27,14 @@ public class BSTmovie {
 	//search helper function 
 	//takes in parameters 
 
-	public CustomerNode search2(CustomerNode p,int key){
+	public MNode search2(MNode p,int key){
 		if (p==null){
 			return null;
 		}
-		else if(key==p.getKey()){
+		else if(key==p.getCode()){
 				return p;
 				}
-		else if (key<p.getKey()){
+		else if (key<p.getCode()){
 				return search2(p.getLeft(),key);
 				}
 		else{
@@ -43,14 +43,14 @@ public class BSTmovie {
 	}
 	//searches for node by key
 	//calls search helper functon
-	public CustomerNode search(int key){
+	public MNode search(int key){
 			if (root==null){
 			return null;
 		}
-		else if( key==root.getKey()){
+		else if( key==root.getCode()){
 				return root;
 				}
-		else if (key<root.getKey()){
+		else if (key<root.getCode()){
 				return search2(root.getLeft(),key);
 				}
 		else{
@@ -61,8 +61,8 @@ public class BSTmovie {
 			
 	//insert helper function 
 	//does not return anything
-	private void insert2(CustomerNode temp,CustomerNode p){
-		if (p.getKey()<temp.getKey()){
+	private void insert2(MNode temp,MNode p){
+		if (p.getCode()<temp.getCode()){
 			if (temp.getLeft()==null){
 				temp.setLeft(p);
 			}
@@ -80,7 +80,7 @@ public class BSTmovie {
 		}
 	}
 	//inserts node in proper location
-	public void insert(CustomerNode p){
+	public void insert(MNode p){
 		if(root==null){
 			root=p;
 		}
@@ -92,15 +92,15 @@ public class BSTmovie {
 	public void traverse(){
 		if (root!=null){
 			traverse2(root.getLeft());
-			System.out.println(root.getKey());
+			System.out.println(root.getCode());
 			traverse2(root.getRight());
 		}
 	}
 	//traverse helper function 
-	public void traverse2(CustomerNode temp){
+	public void traverse2(MNode temp){
 		if(temp!=null){
 			traverse2(temp.getLeft());
-			System.out.println(temp.getKey());
+			System.out.println(temp.getCode());
 			traverse2(temp.getRight());
 		}
 	}
@@ -115,11 +115,11 @@ public class BSTmovie {
     //my successor function
     //takes in node
     //will return node
-    public CustomerNode replacement(CustomerNode x){
+    public MNode replacement(MNode x){
     	//creates temp node, and gets the node to the right of x
-    	CustomerNode temp = x.getRight();
+    	MNode temp = x.getRight();
     	//creates another temp node
-    	CustomerNode temp2 =temp;
+    	MNode temp2 =temp;
     	while (temp2.getLeft()!= null){
     		temp=temp2;
     		temp2=temp2.getLeft();}
@@ -131,11 +131,11 @@ public class BSTmovie {
     }
     //method to find the parent of a given node
     //returns the parent node
-    public CustomerNode getParent(CustomerNode t){
+    public MNode getParent(MNode t){
     	//creating node
-    	CustomerNode parent=root;
+    	MNode parent=root;
     	while(parent.getRight()!=t && parent.getLeft() != t){
-    		if (t.getKey()>parent.getKey()){
+    		if (t.getCode()>parent.getCode()){
     			parent=parent.getRight();
     		}
     		else{
@@ -148,7 +148,7 @@ public class BSTmovie {
 
     //removes node from tree
     //re-orders the tree if needed
-    public void delete(CustomerNode y){
+    public void delete(MNode y){
    		
     	if (root != null){
   			//if node taken in is the root
@@ -179,27 +179,27 @@ public class BSTmovie {
 
     		else{
     			//calls get parent method
-    			CustomerNode p=getParent(y);
+    			MNode p=getParent(y);
     			//if node taken in key is less than parent key
-    			if(y.getKey()<p.getKey()){
+    			if(y.getCode()<p.getCode()){
     				//if both nodes are null
     				if (y.getLeft()==null && y.getRight()==null){
     					p.setLeft(null);}
     					//if left of parent node has a value
     				else if(y.getLeft()!=null && y.getRight()==null){
-    					CustomerNode f=y.getLeft();
+    					MNode f=y.getLeft();
     					p.setLeft(f);
     					y.setLeft(null);
     				}//if right of parent node has a value
     				else if(y.getRight()!=null && y.getLeft()==null){
-    					CustomerNode f=y.getRight();
+    					MNode f=y.getRight();
     					//setting p left of f
     					p.setLeft(f);
     					y.setRight(null);}
 
     				else{
     					//otherwise calls replacement on y
-    					CustomerNode t=replacement(y);
+    					MNode t=replacement(y);
 
     					//gets the parent of y
     					p=getParent(y);
@@ -222,7 +222,7 @@ public class BSTmovie {
 				    	if (y.getLeft()==null && y.getRight()==null){p.setRight(null);}
 				    	//if node on left has value
 				    	else if(y.getLeft()!=null && y.getRight()==null){
-				    		CustomerNode f=y.getLeft();
+				    		MNode f=y.getLeft();
 				    		//sets p to right of f
 				    		p.setRight(f);
 				    		//sets y to null
@@ -230,14 +230,14 @@ public class BSTmovie {
 				    		//if node on right has value
 				    	else if(y.getRight()!=null && y.getLeft()==null){
 				    		//sets f to right node of y
-				    		CustomerNode f=y.getRight();
+				    		MNode f=y.getRight();
 				    		//sets p to right node of f
 				    		p.setRight(f);
 				    		//moves y to null
 				    		y.setRight(null);}
 				    	else{
 				    		//calls replacement on y
-				    		CustomerNode t=replacement(y);
+				    		MNode t=replacement(y);
 				    		//gets the parent of y
 				    		p=getParent(y);
 
@@ -256,15 +256,15 @@ public class BSTmovie {
 				  
 }
    //print tree helper function given to us
-    private void printTree2(CustomerNode tree) {
+    private void printTree2(MNode tree) {
 	if (tree != null) {
-	    System.out.print(tree.getKey() + " ");
+	    System.out.print(tree.getCode() + " ");
             if (tree.getLeft() != null)
-	        System.out.print("Left: " + tree.getLeft().getKey() + " ");
+	        System.out.print("Left: " + tree.getLeft().getCode() + " ");
             else
                 System.out.print("Left: null ");
             if (tree.getRight() != null)
-	        System.out.println("Right: " + tree.getRight().getKey() + " ");
+	        System.out.println("Right: " + tree.getRight().getCode() + " ");
             else
                 System.out.println("Right: null ");
 	    	printTree2(tree.getLeft());
