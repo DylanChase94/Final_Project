@@ -1,65 +1,46 @@
-/*
-Charlie, Dylan, PT, Ray
-5/1/2016
-Movie List
-*/
-
 public class movie{
-	private String title;
-	private int release;
-	private int code;
-	private int rtScore;
-	private boolean inStock = false;
-
-	public movie(String title0, int release0, int code0, int rtScore0, boolean inStock0){
-		title = title0;
-		release = release0;
-		code = code0;
-		rtScore = rtScore0;
-		inStock = inStock0
-	}
-
-	public int getRdate(){
-		return release;
-	}
-	public String getTitle(){
-		return title;
-	}
-	public int getRTscore(){
-		return  rtScore;
-	}
-	public int getCode(){
-		return code;
-	}
-	public boolean checkStock(){
-		return inStock;
-	}
-
+	
 	public static void main(String[] args){
-		movie movie1 = new movie("Step Brothers", 20110616, 00001, 98, true);
+		BSTmovie a=new BSTmovie();
+		MNode movie1 = new MNode("Step Brothers", 20110616,10000, 98, true);
+		MNode movie2 = new MNode("Up", 20090411,10001, 87, true);
+		MNode movie3 = new MNode("Mighty Ducks", 19861008,10002, 92, true);
+		MNode movie4 = new MNode("Doogle", 20070819,10003, 6, true);
+		MNode movie5 = new MNode("Ping Pong Summer", 20120612,10004, 2, true);
+		MNode movie6 = new MNode("Catch Me if You Can", 20030906,10005, 99, true);
+		MNode movie7 = new MNode("Dylan's Feeling 22'", 20150416,10006, 22, true);
+		MNode movie8 = new MNode("This Weekend", 20160422,10007,91, true);
+		MNode movie9 = new MNode("Everybody Loves Ray", 20021114,10008, 63, true);
+		MNode movie10 = new MNode("Sub-par Programmer", 20150902,10009, 43, true);
 
-		movie movie2 = new movie("Up", 20090411, 00002, 87, true);
+		a.insert(movie1);
+		a.insert(movie2);
+		a.insert(movie3);
+		a.insert(movie4);
+		a.insert(movie5);
+		a.insert(movie6);
+		a.insert(movie7);
+		a.insert(movie8);
+		a.insert(movie9);
+		a.insert(movie10);
 
-		movie movie3 = new movie("Mighty Ducks", 19861008, 00003, 92, true);
+		/*System.out.println(a.search(10009).getTitle());
+		System.out.println(a.search(10009).getRdate());
+		System.out.println(a.search(10009).getRTscore());
+		System.out.println(a.search(10009).getCode());
+		*/
+		a.traverse();
 
-		movie movie4 = new movie("Doogle", 20070819, 00004, 6, true);
 
-		movie movie5 = new movie("Ping Pong Summer", 20120612, 00005, 2, true);
-
-		movie movie6 = new movie("Catch Me if You Can", 20030906, 00006, 99, true);
-
-		movie movie7 = new movie("Dylan's Feeling 22'", 20150416, 00007, 22, true);
-
-		movie movie8 = new movie("This Weekend", 20160422, 00008, 91, true);
-
-		movie movie9 = new movie("Everybody Loves Ray", 20021114, 00009, 63, true);
-
-		movie movie10 = new movie("Sub-par Programmer", 20150902, 00010, 43, true);
-
-		
-
-	}
-
+		//a.delete(movie10);
+		//ask about this tomorrow System.out.println(a.search(10009).checkStock());
 
 
 }
+}
+
+
+
+
+
+
