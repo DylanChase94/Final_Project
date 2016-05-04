@@ -58,6 +58,7 @@ public class Menu{
 
 			if (n==1){
 				System.out.println("1. Edit Account");
+
 			}
 			else if (n==2){
 				System.out.println("2. Edit Wishlist");
@@ -103,7 +104,10 @@ public class Menu{
 				System.out.println("6. Edit Customer");
 			}
 			else if (n==7){
-				System.out.println("7. Return to Main Menu");
+				System.out.println("7. Search for Customer");
+			}
+			else if (n==8){
+				System.out.println("8. Return to Main Menu");
 			}
 		}
 	}
