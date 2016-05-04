@@ -7,56 +7,79 @@ public class Menu{
 
 	public Menu(){
 		int n=0;
-}
-	public static void main(String[]args){
-	Scanner s=new Scanner(System.in);
-	System.out.println("Enter 1 for Admin or 2 for Customer");
-
-   int n=s.nextInt();
-   
-	if(n==1){
-		System.out.println("This is the Admin page");
-	}
-	else if(n==2){
-		System.out.println("This is the Customer page");
-	}
-	else{
-		System.out.println("You did not enter 1 or 2");
-	}
-}
-}
-import java.util.Scanner;
-
-public class bundle{
-
-	private String name;
-	private int grade;
-
-	public bundle(String name0, int grade0){
-        name = name0;
-        grade = grade0; 
-    }
-    public static void fillArray(student[] args){
-    	Scanner scan = new Scanner(System.in);  // Reading from System.in
-		for (int i=0; i<5; i++);
-		{
-    		 
-				System.out.println("Enter a name: ");
-				String s = scan.nextLine();
-				System.out.println("Enter a grade: ");
-				int x = scan.nextInt();
-				student stu1 = new student(s,x);
-				args[i] = stu1;
-    	}
-    }
+	}	
 
 	public static void main(String[] args){
-		student[] myStudentArray = new student[5];
-		fillArray(myStudentArray);
+		Scanner s=new Scanner(System.in);
+		System.out.println("Enter 1 for Admin or 2 for Customer");
+
+		int n = -1;
+		while(n != 1 && n != 2){
+		   	n=s.nextInt();
+		   	if (n != 1 && n != 2){
+		   		System.out.println("You did not enter 1 or 2");
+		   	}
+		}
+
+		String pagestatus = "User";
+		if(n==1){
+			System.out.println("This is the Admin page");
+			pagestatus = "Admin";
+			System.out.println("1. Add Movie");
+			System.out.println("2. Delete Movie");
+			System.out.println("3. Rotten Tomatoes Scores");
+			System.out.println("4. Add Customer");
+			System.out.println("5. Delete Customer");
+			System.out.println("6. Edit Customer");
+
+			System.out.println("7. Return to Main Menu");
+		}
+		else if (n==2){
+			System.out.println("This is the Customer page");
+			pagestatus = "User";
+			System.out.println("1. Edit Account");
+
+			System.out.println("2. Edit Wishlist");
+			
+			System.out.println("3. Search Movies By Date");
+			System.out.println("4. Search Movies By ID");
+			System.out.println("5. Print Movies By Release Date");
+			System.out.println("6. Delete Account");
+			System.out.println("7. Return to Main Menu");
+		}
+
+		n = -1;
+		if (pagestatus.equals("User")){
+			while (n!=1 && n!=2 && n!=3 && n!=4 && n!=5 && n!=6 && n!=7){
+				n=s.nextInt();
+				if (n!=1 && n!=2 && n!=3 && n!=4 && n!=5 && n!=6 && n!=7){
+					System.out.println("Incorrect Key. Please choose valid option.");
+			}
+
+			if (n==1){
+				System.out.println("1. Edit Account");
+			}
+			else if (n==2){
+				System.out.println("2. Edit Wishlist");
+			}
+			else if (n==3){
+				System.out.println("3. Search Movies By Date");
+			}
+			else if (n==4){
+				System.out.println("4. Search Movies By ID");
+			}
+			else if (n==5){
+				System.out.println("5. Print Movies By Release Date");
+			}
+			else if (n==6){
+				System.out.println("6. Delete Account");
+			}
+			else if (n==7){
+				System.out.println("7. Return to Main Menu");
+			}
+		}
 	}
+	else
 
-	
 }
-	
 }
-
