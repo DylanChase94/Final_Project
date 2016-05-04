@@ -79,7 +79,35 @@ public class Menu{
 			}
 		}
 	}
-	else
+	else if (pagestatus.equals("Admin")){
+		while (n!=1 && n!=2 && n!=3 && n!=4 && n!=5 && n!=6 && n!=7){
+				n=s.nextInt();
+				if (n!=1 && n!=2 && n!=3 && n!=4 && n!=5 && n!=6 && n!=7){
+					System.out.println("Incorrect Key. Please choose valid option.");
+			if (n==1){
+				System.out.println("1. Add Movie");
+			}
+			else if (n==2){
+				System.out.println("2. Delete Movie");
+			}
+			else if (n==3){
+				System.out.println("3. Rotten Tomatoes Scores");
+			}
+			else if (n==4){
+				System.out.println("4. Add Customer");
+			}
+			else if (n==5){
+				System.out.println("5. Delete Customer");
+			}
+			else if (n==6){
+				System.out.println("6. Edit Customer");
+			}
+			else if (n==7){
+				System.out.println("7. Return to Main Menu");
+			}
+		}
+	}
 
+}
 }
 }
