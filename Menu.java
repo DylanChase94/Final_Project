@@ -7,9 +7,11 @@ public class Menu{
 
 	public Menu(){
 		int n=0;
+
 	}	
 
 	public static void main(String[] args){
+		BSTmovie a= new BSTmovie();
 		Scanner s=new Scanner(System.in);
 		System.out.println("Enter 1 for Admin or 2 for Customer");
 
@@ -35,6 +37,7 @@ public class Menu{
 			System.out.println("8. Return to Main Menu");
 		}
 		else if (n==2){
+			int c=0;
 			System.out.println("This is the Customer page");
 			pagestatus = "User";
 			System.out.println("1. Edit Account");
@@ -46,6 +49,7 @@ public class Menu{
 			System.out.println("5. Print Movies By Release Date");
 			System.out.println("6. Delete Account");
 			System.out.println("7. Return to Main Menu");
+		
 		}
 
 		n = -1;
@@ -67,8 +71,17 @@ public class Menu{
 				System.out.println("3. Search Movies By Date");
 			}
 			else if (n==4){
-				System.out.println("4. Search Movies By ID");
+				System.out.println("Enter movie ID");
+				int movie_ID=s.nextInt();
+				if(a.search(movie_ID)!=null){
+				System.out.println(a.search(movie_ID).getTitle());
 			}
+				else{
+				System.out.println("Movie Not Found");
+			}
+	
+			}
+			
 			else if (n==5){
 				System.out.println("5. Print Movies By Release Date");
 			}
