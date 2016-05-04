@@ -31,8 +31,8 @@ public class Menu{
 			System.out.println("4. Add Customer");
 			System.out.println("5. Delete Customer");
 			System.out.println("6. Edit Customer");
-
-			System.out.println("7. Return to Main Menu");
+			System.out.println("7. Search for Customer");
+			System.out.println("8. Return to Main Menu");
 		}
 		else if (n==2){
 			System.out.println("This is the Customer page");
@@ -81,9 +81,9 @@ public class Menu{
 		}
 	}
 	else if (pagestatus.equals("Admin")){
-		while (n!=1 && n!=2 && n!=3 && n!=4 && n!=5 && n!=6 && n!=7){
+		while (n!=1 && n!=2 && n!=3 && n!=4 && n!=5 && n!=6 && n!=7 && n!=8){
 				n=s.nextInt();
-				if (n!=1 && n!=2 && n!=3 && n!=4 && n!=5 && n!=6 && n!=7){
+				if (n!=1 && n!=2 && n!=3 && n!=4 && n!=5 && n!=6 && n!=7 && n!=8){
 					System.out.println("Incorrect Key. Please choose valid option.");
 			if (n==1){
 				System.out.println("1. Add Movie");
