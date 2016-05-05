@@ -5,11 +5,11 @@ Final Project
 */
 
 public class Wishlist{
-	private mNode[] wishlist;
+	private MNode[] wishlist;
 	private int n;
 
 	public Wishlist(){
-		wishlist = new mNode[20];
+		wishlist = new MNode[20];
 		n = 0;
 	}
 
@@ -21,10 +21,12 @@ public class Wishlist{
 		}
 	}
 
-	public void insert(mNode newNode, int index){
+	public void insert(MNode newNode, int index){
 		n++;
-		for (int i = n; i >= index; i--){
-			wishlist[i] = wishlist[i-1];
+		if (n != 0){
+			for (int i = n; i >= index; i--){
+				wishlist[i] = wishlist[i-1];
+			}
 		}
 		wishlist[index-1] = newNode;
 	}
