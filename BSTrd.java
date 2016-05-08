@@ -14,7 +14,6 @@ public class BSTrd implements java.io.Serializable {
 
 	private MNode t;
 
-
 	
 	public BSTrd(){
 		root=null;
@@ -35,10 +34,10 @@ public class BSTrd implements java.io.Serializable {
 				return p;
 				}
 		else if (key<p.getRdate()){
-				return search2(p.getLeftb(),key);
+				return search2(p.getLeft(),key);
 				}
 		else{
-			return search2(p.getRightb(),key);
+			return search2(p.getRight(),key);
 		}
 	}
 	//searches for node by key
@@ -51,10 +50,10 @@ public class BSTrd implements java.io.Serializable {
 				return root;
 				}
 		else if (key<root.getRdate()){
-				return search2(root.getLeftb(),key);
+				return search2(root.getLeft(),key);
 				}
 		else{
-			return search2(root.getRightb(),key);
+			return search2(root.getRight(),key);
 		}
 
 	}
@@ -63,19 +62,19 @@ public class BSTrd implements java.io.Serializable {
 	//does not return anythingMNodeMNodeMNode
 	private void insert2(MNode temp,MNode p){
 		if (p.getRdate()<temp.getRdate()){
-			if (temp.getLeftb()==null){
-				temp.setLeftb(p);
+			if (temp.getLeft()==null){
+				temp.setLeft(p);
 			}
 			else{
-				insert2(temp.getLeftb(),p);
+				insert2(temp.getLeft(),p);
 				}
 			}		
 		else {
-			if(temp.getRightb()==null){
-				temp.setRightb(p);
+			if(temp.getRight()==null){
+				temp.setRight(p);
 			}
 			else{
-				insert2(temp.getRightb(),p);
+				insert2(temp.getRight(),p);
 		}
 		}
 	}
@@ -91,9 +90,9 @@ public class BSTrd implements java.io.Serializable {
 	//prints the contents of the tree in order
 	public void traverse(){
 		if (root!=null){
-			traverse2(root.getLeftb());
+			traverse2(root.getLeft());
 			System.out.println(root.getRdate());
-			traverse2(root.getRightb());
+			traverse2(root.getRight());
 		}
 	}
 	//traverse helper function 
@@ -101,7 +100,7 @@ public class BSTrd implements java.io.Serializable {
 		if(temp!=null){
 			traverse2(temp.getLeft());
 			System.out.println(temp.getRdate());
-			traverse2(temp.getRightb());
+			traverse2(temp.getRight());
 		}
 	}
 	
@@ -117,14 +116,14 @@ public class BSTrd implements java.io.Serializable {
     //will return node
     public MNode replacement(MNode x){
     	//creates temp node, and gets the node to the right of x
-    	MNode temp = x.getRightb();
+    	MNode temp = x.getRight();
     	//creates another temp node
     	MNode temp2 =temp;
-    	while (temp2.getLeftb()!= null){
+    	while (temp2.getLeft()!= null){
     		temp=temp2;
-    		temp2=temp2.getLeftb();}
+    		temp2=temp2.getLeft();}
     	if (temp2!=temp){
-    		temp.setLeftb(temp2.getRightb());}
+    		temp.setLeft(temp2.getRight());}
     	return temp2;
     	
 
@@ -134,12 +133,12 @@ public class BSTrd implements java.io.Serializable {
     public MNode getParent(MNode t){
     	//creating node
     	MNode parent=root;
-    	while(parent.getRightb()!=t && parent.getLeftb() != t){
+    	while(parent.getRight()!=t && parent.getLeft() != t){
     		if (t.getRdate()>parent.getRdate()){
-    			parent=parent.getRightb();
+    			parent=parent.getRight();
     		}
     		else{
-    			parent=parent.getLeftb();
+    			parent=parent.getLeft();
     		
     		}
     	}
@@ -154,24 +153,24 @@ public class BSTrd implements java.io.Serializable {
   			//if node taken in is the root
     		if (y==root){
     			//root is null if both childern are null
-    			if (root.getRightb()==null && root.getLeftb()==null){
+    			if (root.getRight()==null && root.getLeft()==null){
     				root=null;
     			}
     			//if right child is not null
     			//creates new root
-    			else if (y.getRightb()!= null && y.getLeftb()==null){
-    				root=y.getRightb();
+    			else if (y.getRight()!= null && y.getLeft()==null){
+    				root=y.getRight();
     			}
     			//if left child is not null
     			//creates new root
-    			else if (y.getRightb()== null && y.getLeftb()!=null){
-    				root=y.getLeftb();
+    			else if (y.getRight()== null && y.getLeft()!=null){
+    				root=y.getLeft();
     			}
     			else{
     			//calls replacement method on node taken in
     			s=replacement(y);
-    			s.setRightb(root.getRightb());
-    			s.setLeftb(root.getLeftb());
+    			s.setRight(root.getRight());
+    			s.setLeft(root.getLeft());
     			//the root is now s
     			root=s;
     			}
@@ -183,19 +182,19 @@ public class BSTrd implements java.io.Serializable {
     			//if node taken in key is less than parent key
     			if(y.getRdate()<p.getRdate()){
     				//if both nodes are null
-    				if (y.getLeftb()==null && y.getRightb()==null){
-    					p.setLeftb(null);}
+    				if (y.getLeft()==null && y.getRight()==null){
+    					p.setLeft(null);}
     					//if left of parent node has a value
-    				else if(y.getLeftb()!=null && y.getRightb()==null){
-    					MNode f=y.getLeftb();
-    					p.setLeftb(f);
-    					y.setLeftb(null);
+    				else if(y.getLeft()!=null && y.getRight()==null){
+    					MNode f=y.getLeft();
+    					p.setLeft(f);
+    					y.setLeft(null);
     				}//if right of parent node has a value
-    				else if(y.getRightb()!=null && y.getLeftb()==null){
-    					MNode f=y.getRightb();
+    				else if(y.getRight()!=null && y.getLeft()==null){
+    					MNode f=y.getRight();
     					//setting p left of f
-    					p.setLeftb(f);
-    					y.setRightb(null);}
+    					p.setLeft(f);
+    					y.setRight(null);}
 
     				else{
     					//otherwise calls replacement on y
@@ -203,51 +202,51 @@ public class BSTrd implements java.io.Serializable {
 
     					//gets the parent of y
     					p=getParent(y);
-    					if(y.getRightb()!=t){
-    						t.setRightb(y.getRightb());
+    					if(y.getRight()!=t){
+    						t.setRight(y.getRight());
     					}
-    					if (y.getLeftb()!=t){
-    						t.setLeftb(y.getLeftb());
+    					if (y.getLeft()!=t){
+    						t.setLeft(y.getLeft());
     					}
-    					p.setLeftb(t);
+    					p.setLeft(t);
     					//setting right node to null
-    					y.setRightb(null);
+    					y.setRight(null);
     					//setting left node to null
-    					y.setLeftb(null);
+    					y.setLeft(null);
     				}
     				
     			}
     			//if both nodes are null
     			else {   
-				    	if (y.getLeftb()==null && y.getRightb()==null){p.setRightb(null);}
+				    	if (y.getLeft()==null && y.getRight()==null){p.setRight(null);}
 				    	//if node on left has value
-				    	else if(y.getLeftb()!=null && y.getRightb()==null){
-				    		MNode f=y.getLeftb();
+				    	else if(y.getLeft()!=null && y.getRight()==null){
+				    		MNode f=y.getLeft();
 				    		//sets p to right of f
-				    		p.setRightb(f);
+				    		p.setRight(f);
 				    		//sets y to null
-				    		y.setLeftb(null);}
+				    		y.setLeft(null);}
 				    		//if node on right has value
-				    	else if(y.getRightb()!=null && y.getLeftb()==null){
+				    	else if(y.getRight()!=null && y.getLeft()==null){
 				    		//sets f to right node of y
-				    		MNode f=y.getRightb();
+				    		MNode f=y.getRight();
 				    		//sets p to right node of f
-				    		p.setRightb(f);
+				    		p.setRight(f);
 				    		//moves y to null
-				    		y.setRightb(null);}
+				    		y.setRight(null);}
 				    	else{
 				    		//calls replacement on y
 				    		MNode t=replacement(y);
 				    		//gets the parent of y
 				    		p=getParent(y);
 
-				    		if(y.getRightb()!=t){t.setRightb(y.getRightb());}
-				    		if (y.getLeftb()!=t){t.setLeftb(y.getLeftb());}
+				    		if(y.getRight()!=t){t.setRight(y.getRight());}
+				    		if (y.getLeft()!=t){t.setLeft(y.getLeft());}
 				    		//sets p to right of t node
-				    		p.setRightb(t);
+				    		p.setRight(t);
 				    		//sets to null
-				    		y.setRightb(null);
-				    		y.setLeftb(null);
+				    		y.setRight(null);
+				    		y.setLeft(null);
 						}
 						
 					}
@@ -259,19 +258,19 @@ public class BSTrd implements java.io.Serializable {
     private void printTree2(MNode tree) {
 	if (tree != null) {
 	    System.out.print(tree.getRdate() + " ");
-            if (tree.getLeftb() != null)
-	        System.out.print("Left: " + tree.getLeftb().getRdate() + " ");
+            if (tree.getLeft() != null)
+	        System.out.print("Left: " + tree.getLeft().getRdate() + " ");
             else
                 System.out.print("Left: null ");
-            if (tree.getRightb() != null)
-	        System.out.println("Right: " + tree.getRightb().getRdate() + " ");
+            if (tree.getRight() != null)
+	        System.out.println("Right: " + tree.getRight().getRdate() + " ");
             else
                 System.out.println("Right: null ");
-	    	printTree2(tree.getLeftb());
-	    	printTree2(tree.getRightb());}
+	    	printTree2(tree.getLeft());
+	    	printTree2(tree.getRight());}
 	}
 
-	public static void main(String[] args){
+	/*public static void main(String[] args){
 	BSTrd a = new BSTrd();
 	System.out.println("isEmptyTree = " + a.isEmptyTree());
 	MNode xNode = new MNode("Jane", 6789, 1,1, true);
@@ -327,6 +326,5 @@ public class BSTrd implements java.io.Serializable {
 	a.traverse();
 	a.printTree();
 	System.out.println("isEmptyTree = " + a.isEmptyTree());
-    }
+    }*/
 }
-	
