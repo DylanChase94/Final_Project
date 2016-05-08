@@ -17,6 +17,7 @@ public class CustomerNode implements java.io.Serializable{
 		name = name0;
 		credit = credit0;
 		mail = mail0;
+		wishlist = new Wishlist();
 	}
 	
 	public int getKey(){
@@ -69,5 +70,9 @@ public class CustomerNode implements java.io.Serializable{
 	
 	public void setLeft(CustomerNode newLeft){
 		left = newLeft;
+	}
+
+	public Wishlist getWishlist(){
+		return wishlist;
 	}
 }
