@@ -55,11 +55,16 @@ public class Menu1{
 			System.out.println("6. Edit Customer");
 			System.out.println("7. Search for Customer");
 			System.out.println("8. Return to Main Menu");
-			while (n>7 ||  n<1){
-					System.out.println("user paga 212312" + n);
+			while (n>=7 ||  n<=1){
+					System.out.println("choose an option" + n);
 					n=s.nextInt();
-					if (n>7 ||  n<1)
+					s.nextLine();
+					if (n>7 ||  n<1){
 						System.out.println("Incorrect Key. Please choose valid option.");
+					}
+					else{
+						break;
+					}
 			}
 			if (n==1)
 				pagestatus = "Addmovie";
@@ -88,11 +93,16 @@ public class Menu1{
 			System.out.println("5. Print Movies By Release Date");
 			System.out.println("6. Delete Account");
 			System.out.println("7. Return to Main Menu");
-			while (n>7 ||  n<1){
+			while (n>=7 ||  n<=1){
 					System.out.println("user paga 212312" + n);
 					n=s.nextInt();
-					if (n>7 ||  n<1)
+					s.nextLine();
+					if (n>7 ||  n<1){
 						System.out.println("Incorrect Key. Please choose valid option.");
+					}
+					else{
+						break;
+					}
 			}
 			if (n==1)
 				pagestatus = "Ea";
@@ -244,6 +254,8 @@ public class Menu1{
 				rdBST.insert(newmovie);
 				heap.insert(newmovie);
 				System.out.println("Your movie was successfully added to the data base");
+				n = 0;
+				pagestatus = "admin";
 				
 			}
 			else if (pagestatus.equals("Findworst")){
