@@ -27,7 +27,7 @@ public class Menu1{
 		*/
 
 		Scanner s=new Scanner(System.in);
-		String pagestatus = "";
+		String pagestatus = "initialPage";
 
 		while (!pagestatus.equals("quit")){
 			int n = -1;
@@ -307,7 +307,7 @@ public class Menu1{
 					pagestatus = "admin";
 				}
 				else{
-					System.out.println("You are deleting" + customerBST(deletecc).getName() + "from the database");
+					System.out.println("You are deleting" + customerBST.search(deletecc).getName() + "from the database");
 					customerBST.delete(customerBST.search(deletecc));
 				}
 				pagestatus = "admin";
@@ -316,7 +316,7 @@ public class Menu1{
 				System.out.println("6. Edit Customer");
 				System.out.println("Enter the customer's credit card number");
 				int editcc = s.nextInt();
-				while (customerBST.search(editcc) = null){
+				while (customerBST.search(editcc) == null){
 					System.out.println("There is no customer under this credit card number");
 					System.out.println("if you want to go back to the admin menu enter 1");
 					int decision5 = s.nextInt();
