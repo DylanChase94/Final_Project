@@ -15,7 +15,7 @@ public class Menu1{
 		//initiate all of the data structures
 		BSTmovie idBST= new BSTmovie(); 
 		BSTCustomer customerBST = new BSTCustomer();
-		BSTrd  rdBST= new BSTrd();
+		BSTrd rdBST= new BSTrd();
 		MovieHeap heap = new MovieHeap();
 		Wishlist wishes = new Wishlist();
 
@@ -226,7 +226,7 @@ public class Menu1{
 
 			if (pagestatus.equals("Addmovie")){
 				System.out.println("1. Add Movie");
-				System.out.println("Enter the title of the movie")
+				System.out.println("Enter the title of the movie");
 				String newtitle = s.nextLine();
 				System.out.println("Enter the release date. If the release is October 25th, 2005 enter the date as:");
 				System.out.println("Year, month, day: 20051025");
@@ -325,21 +325,21 @@ public class Menu1{
 					}
 					else{
 						System.out.println("Enter the customer's credit card number");
-						int editcc = s.nextInt();
+						editcc = s.nextInt();
 					}
 				}
 				System.out.println("1. Edit their name");
 				System.out.println("2. Edit their credit card number");
 				System.out.println("3. Edit their email address");
 				System.out.println("4. Edit another customer");
-				int decision4 = s.nextint();
+				int decision4 = s.nextInt();
 				while (decision4 < 1 || decision4 > 4){
 					System.out.println("Incorrect command, please enter the number corresponding to the function you wish to complete");
 					System.out.println("1. Edit their name");
 					System.out.println("2. Edit their credit card number");
 					System.out.println("3. Edit their email address");
 					System.out.println("4. Edit another customer");
-					int decision4 = s.nextint();
+					decision4 = s.nextInt();
 				}
 				if (decision4 == 1){
 					System.out.println("Enter the new name for this customer");
@@ -348,7 +348,7 @@ public class Menu1{
 					pagestatus = "Editcust";
 				}
 				else if (decision4 ==2){
-					System.out.pring("Enter the new credit card number for this customer");
+					System.out.print("Enter the new credit card number for this customer");
 					int newcc1 = s.nextInt();
 					customerBST.search(editcc).setCredit(newcc1);
 					pagestatus = "Editcust";
@@ -357,7 +357,7 @@ public class Menu1{
 					System.out.println("Enter the new email address for this customer");
 					String newemail = s.nextLine();
 					customerBST.search(editcc).setMail(newemail);
-					pagestatus = "Editcust"
+					pagestatus = "Editcust";
 				}
 				else{
 					pagestatus = "Editcust";
@@ -404,5 +404,3 @@ public class Menu1{
 	}
 
 }
-
-
