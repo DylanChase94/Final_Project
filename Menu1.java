@@ -2,7 +2,9 @@
 
 import java.util.Scanner;
 
-public class Menu1{
+import java.io.*;
+
+public class Menu1 implements java.io.Serializable{
 	private int n;
 
 	public Menu1(){
@@ -10,21 +12,86 @@ public class Menu1{
 
 	}	
 
-	public static void main(String[] args){
+	public static void main (String[] args){
 
 		//initiate all of the data structures
 		BSTmovie idBST= new BSTmovie(); 
 		BSTCustomer customerBST = new BSTCustomer();
 		BSTrd rdBST= new BSTrd();
 		MovieHeap heap = new MovieHeap();
-		Wishlist wishes = new Wishlist();
+		//Wishlist wishes = new Wishlist();
 
-		/*
-		CustomerNode testNode = new CustomerNode("Jane", 12340000, "jane.doe@conncoll.edu");
-		System.out.println(testNode.getName());
-		customerBST.insert(testNode);
-		System.out.println(customerBST.search(12340000));
-		*/
+		//BSTmovie idBST;
+		try {
+	        FileInputStream fileIn = new FileInputStream("BSTMovie.txt");
+	       	ObjectInputStream in = new ObjectInputStream(fileIn);
+	        idBST = (BSTmovie) in.readObject();
+	        in.close();
+	        fileIn.close();
+      	}	
+      	catch(IOException i) {
+        	i.printStackTrace();
+        	return;
+    	}
+     	catch(ClassNotFoundException c) {
+	        System.out.println("BSTmovie class not found");
+	        c.printStackTrace();
+	        return;
+      	}
+
+		//BSTCustomer d = null;
+		try {
+	        FileInputStream fileIn = new FileInputStream("BSTCustomer.txt");
+	       	ObjectInputStream in = new ObjectInputStream(fileIn);
+	        customerBST = (BSTCustomer) in.readObject();
+	        in.close();
+	        fileIn.close();
+      	}	
+      	catch(IOException i) {
+        	i.printStackTrace();
+        	return;
+    	}	
+     	catch(ClassNotFoundException c) {
+	        System.out.println("BSTCustomer class not found");
+	        c.printStackTrace();
+	        return;
+      	}
+
+		//BSTrd e = null;
+		try {
+	        FileInputStream fileIn = new FileInputStream("BSTrd.txt");
+	       	ObjectInputStream in = new ObjectInputStream(fileIn);
+	        rdBST = (BSTrd) in.readObject();
+	        in.close();
+	        fileIn.close();
+      	}	
+      	catch(IOException i) {
+        	i.printStackTrace();
+        	return;
+    	}	
+     	catch(ClassNotFoundException c) {
+	        System.out.println("BSTrd class not found");
+	        c.printStackTrace();
+	        return;
+      	}
+
+		//MovieHeap f = null;
+		try {
+	        FileInputStream fileIn = new FileInputStream("MovieHeap.txt");
+	       	ObjectInputStream in = new ObjectInputStream(fileIn);
+	        heap = (MovieHeap) in.readObject();
+	        in.close();
+	        fileIn.close();
+      	}	
+      	catch(IOException i) {
+        	i.printStackTrace();
+        	return;
+    	}	
+     	catch(ClassNotFoundException c) {
+	        System.out.println("MovieHeap class not found");
+	        c.printStackTrace();
+	        return;
+      	}
 
 		Scanner s=new Scanner(System.in);
 		String pagestatus = "initialPage";
@@ -49,17 +116,16 @@ public class Menu1{
 			System.out.println("This is the Admin page");
 			System.out.println("1. Add Movie");
 			System.out.println("2. Find movie with the worst Rotten Tomatoes rating");
-			System.out.println("3. Search movie by Rotten Tomatoes Scores");
-			System.out.println("4. Add Customer");
-			System.out.println("5. Delete Customer");
-			System.out.println("6. Edit Customer");
-			System.out.println("7. Search for Customer");
-			System.out.println("8. Return to Main Menu");
-			while (n>=7 ||  n<=1){
-					System.out.println("choose an option" + n);
+			System.out.println("3. Add Customer");
+			System.out.println("4. Delete Customer");
+			System.out.println("5. Edit Customer");
+			System.out.println("6. Search for Customer");
+			System.out.println("7. Return to Main Menu");
+			System.out.println("8. Quit");
+			while (n>=8 ||  n<=1){
 					n=s.nextInt();
 					s.nextLine();
-					if (n>7 ||  n<1){
+					if (n>8 ||  n<1){
 						System.out.println("Incorrect Key. Please choose valid option.");
 					}
 					else{
@@ -71,17 +137,17 @@ public class Menu1{
 			else if(n==2)
 				pagestatus = "Findworst";
 			else if(n==3)
-				pagestatus = "RTs";
-			else if(n==4)
 				pagestatus = "Addcust";
-			else if(n==5)
+			else if(n==4)
 				pagestatus = "Deletecust";
-			else if(n==6)
+			else if(n==5)
 				pagestatus = "Editcust";
-			else if(n==7)
+			else if(n==6)
 				pagestatus = "Searchcust";
-			else 
+			else if(n==7)
 				pagestatus = "initialPage";
+			else
+				pagestatus = "quit";
 		}
 		else if (pagestatus.equals("user")){
 			int c=0;
@@ -93,11 +159,11 @@ public class Menu1{
 			System.out.println("5. Print Movies By Release Date");
 			System.out.println("6. Delete Account");
 			System.out.println("7. Return to Main Menu");
-			while (n>=7 ||  n<=1){
-					System.out.println("user paga 212312" + n);
+			System.out.println("8. Quit");
+			while (n>=8 ||  n<=1){
 					n=s.nextInt();
 					s.nextLine();
-					if (n>7 ||  n<1){
+					if (n>8 ||  n<1){
 						System.out.println("Incorrect Key. Please choose valid option.");
 					}
 					else{
@@ -116,9 +182,12 @@ public class Menu1{
 				pagestatus = "Printm";
 			else if(n==6)
 				pagestatus = "DA";
-			else 
+			else if (n==7)
 				pagestatus = "initialPage";
+			else
+				pagestatus = "quit";
 		}
+		//s.nextInt();
 			if (pagestatus.equals("Ea")){
 				System.out.println("Enter the credit card number your account is registered under");
 				int ccinput = s.nextInt(); //use this to search for this customer in the BST
@@ -287,21 +356,13 @@ public class Menu1{
 			}
 		}
 
-
-			else if (pagestatus.equals("RTs")){
-				System.out.println("3. Rotten Tomatoes Scores");
-				//we dont need this section 
-				//we cant search by RT bc they only stored in a heap by RT score and heaps 
-				//do not have a search function
-			}
-
 			//Customers are gone when running program again
 			//IF CC NUMBER IS TOO LONG, IT DOESNT WORK!!!
 			else if (pagestatus.equals("Addcust")){
-				System.out.println("4. Add Customer");
+				System.out.println("3. Add Customer");
 				System.out.println("Enter the name of the customer");
 				String cname = s.nextLine();
-				System.out.println("Enter the customer's credit card number");
+				System.out.println("Enter the customer's last 4 digits of CC number");
 				int ccc = s.nextInt();
 				System.out.println("Enter the customer's email address");
 				s.nextLine();
@@ -324,7 +385,7 @@ public class Menu1{
 			}
 			
 			else if (pagestatus.equals("Deletecust")){
-				System.out.println("5. Delete Customer");
+				System.out.println("4. Delete Customer");
 				System.out.println("Enter the credit card of the customer you would like to delete");
 				int deletecc = s.nextInt();
 				if (customerBST.search(deletecc) == null){
@@ -341,8 +402,8 @@ public class Menu1{
 					customerBST.delete(customerBST.search(deletecc));
 					System.out.println("If you want to delete another customer, press 1");
 					System.out.println("If you want to return to the admin menu, press any other number");
-					int d=s.nextInt();
-					if(d==1){
+					int z=s.nextInt();
+					if(z==1){
 						pagestatus="Deletecust";
 					}
 					else{
@@ -353,7 +414,7 @@ public class Menu1{
 			}
 			
 			else if (pagestatus.equals("Editcust")){
-				System.out.println("6. Edit Customer");
+				System.out.println("5. Edit Customer");
 				System.out.println("Enter the customer's credit card number");
 				int editcc = s.nextInt();
 				if (customerBST.search(editcc) == null){
@@ -455,20 +516,25 @@ public class Menu1{
 
 			//if cc is too long, doesnt work!
 			else if (pagestatus.equals("Searchcust")){
-				System.out.println("7. Search for Customer");
-				System.out.println("Enter the credit card number of the customer you want to search for:");
+				System.out.println("6. Search for Customer");
+				System.out.println("Enter the last four digits of the customers credit card number:");
 				int searchcc = s.nextInt();
 				if (customerBST.search(searchcc) != null){
 					System.out.println("The customer registered under this cc number is:"+" " +customerBST.search(searchcc).getName());
 					System.out.println("Their email address is" +" "+ customerBST.search(searchcc).getMail());
 					System.out.println("If you want to edit this customer's account enter 1");
 					System.out.println("If you want to delete this customer enter 2");
+					System.out.println("If you want to go back to the Admin page, press 3");
 					int ed = s.nextInt();
 					if (ed == 1){
 						pagestatus = "Editcust";
 					}
 					else if (ed ==2){
 						pagestatus = "Deletecust";
+					}
+
+					else if (ed==3){
+						pagestatus = "admin";
 					}
 				}
 				else{
@@ -483,16 +549,62 @@ public class Menu1{
 					}
 				}
 			}
-			
-			/*
-			else if (pagestatus.equals("")){
-				System.out.println("Returning to the main menu");
-				pagestatus = "initialPage";
-			}
-			*/
-			
-		
-	}
-	}
+		}
 
+		try{
+			FileOutputStream fileOut = 
+			new FileOutputStream("BSTMovie.txt");
+			ObjectOutputStream out = 
+			new ObjectOutputStream(fileOut);
+			out.writeObject(idBST);
+			out.close();
+			fileOut.close();
+			System.out.println("serialized object succesfully in BSTMovie.txt");
+		}
+		catch(IOException i) {
+			i.printStackTrace();
+		}
+
+      	try{
+			FileOutputStream fileOut = 
+			new FileOutputStream("BSTCustomer.txt");
+			ObjectOutputStream out = 
+			new ObjectOutputStream(fileOut);
+			out.writeObject(customerBST);
+			out.close();
+			fileOut.close();
+			System.out.println("serialized object succesfully in BSTCustomer.txt");
+		}
+		catch(IOException i) {
+			i.printStackTrace();
+		}
+
+      	try{
+			FileOutputStream fileOut = 
+			new FileOutputStream("BSTrd.txt");
+			ObjectOutputStream out = 
+			new ObjectOutputStream(fileOut);
+			out.writeObject(rdBST);
+			out.close();
+			fileOut.close();
+			System.out.println("serialized object succesfully in BSTrd.txt");
+		}
+		catch(IOException i) {
+			i.printStackTrace();
+		}
+
+      	try{
+			FileOutputStream fileOut = 
+			new FileOutputStream("MovieHeap.txt");
+			ObjectOutputStream out = 
+			new ObjectOutputStream(fileOut);
+			out.writeObject(heap);
+			out.close();
+			fileOut.close();
+			System.out.println("serialized object succesfully in MovieHeap.txt");
+		}
+		catch(IOException i) {
+			i.printStackTrace();
+		}
+	}
 }
