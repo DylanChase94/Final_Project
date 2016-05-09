@@ -233,7 +233,7 @@ public class Menu1{
 			//ADMIN SECTION
 
 
-
+			//movies leaving database when running the program again
 			if (pagestatus.equals("Addmovie")){
 				System.out.println("1. Add Movie");
 				System.out.println("Enter the title of the movie");
@@ -253,38 +253,50 @@ public class Menu1{
 				idBST.insert(newmovie);
 				rdBST.insert(newmovie);
 				heap.insert(newmovie);
-				System.out.println("Your movie was successfully added to the data base");
+				System.out.println("Your movie was successfully added to the database");
 				n = 0;
 				pagestatus = "admin";
 				
 			}
 			else if (pagestatus.equals("Findworst")){
-				System.out.println("The worst movie in your data base is:");
 				if (heap.isEmpty() != true){
-					System.out.println(heap.findMin().getTitle());
-					System.out.println("It's rotten tomatoes score is:" + heap.findMin().getTitle());
-				}
-				else{
-					System.out.println("There are no movies in the database");
-				}
-				System.out.println("Enter 1 to delete this movie, otherwise you will be redirected to the Admin menu");
-				int decision = s.nextInt();
-				if (decision == 1){
-					heap.deleteMin();
-					System.out.println("The movie has been deleted");
-					pagestatus = "admin";
-				}
-				else{
-					pagestatus = "admin";
+					//System.out.println("The worst movie in your data base is:"+heap.findMin().getTitle());
+					//Not sure why I dont need line above this but it works without it. With it, it prints twice
+					int t=heap.findMin().getRTscore();
+					System.out.println("Its rotten tomatoes score is:" + t);
+					System.out.println("Enter 1 to delete this movie, otherwise you will be redirected to the Admin menu");
+					int decision = s.nextInt();
+				    if (decision == 1){
+						heap.deleteMin();
+						System.out.println("The movie has been deleted");
+			     		pagestatus = "admin";
+					}
+					else{
+						pagestatus = "admin";
+					}
 				}
 
+
+				else{
+					System.out.println("There are no movies in the database");
+					System.out.println("Press any number to return to the admin page");
+					int no_movie=s.nextInt();
+					if(no_movie >= 0){
+						pagestatus="admin";
+					}
 			}
+		}
+
+
 			else if (pagestatus.equals("RTs")){
 				System.out.println("3. Rotten Tomatoes Scores");
 				//we dont need this section 
 				//we cant search by RT bc they only stored in a heap by RT score and heaps 
 				//do not have a search function
 			}
+
+			//Customers are gone when running program again
+			//IF CC NUMBER IS TOO LONG, IT DOESNT WORK!!!
 			else if (pagestatus.equals("Addcust")){
 				System.out.println("4. Add Customer");
 				System.out.println("Enter the name of the customer");
@@ -292,26 +304,30 @@ public class Menu1{
 				System.out.println("Enter the customer's credit card number");
 				int ccc = s.nextInt();
 				System.out.println("Enter the customer's email address");
+				s.nextLine();
 				String cemail = s.nextLine();
 				CustomerNode cnode = new CustomerNode(cname, ccc, cemail);
 				customerBST.insert(cnode);
 				//Do we need to do anything with the customer's wishlist here????????????????????????
-				System.out.println("Enter 1 to insert another customer, enter anyother number to be redirected");
+				System.out.println("Customer added to database");
+				System.out.println("Enter 1 to insert another customer, enter any other number to be redirected back to the admin page");
 				int decision2 = s.nextInt();
 				if (decision2 ==1){
 					pagestatus = "Addcust";
+					s.nextLine();
 				}
 				else{
 					pagestatus = "admin";
 				}
 			}
+			
 			else if (pagestatus.equals("Deletecust")){
 				System.out.println("5. Delete Customer");
 				System.out.println("Enter the credit card of the customer you would like to delete");
 				int deletecc = s.nextInt();
 				if (customerBST.search(deletecc) == null){
 					System.out.println("there is no customer with this credit card number in our database");
-					pagestatus = "Deletecust";
+					pagestatus = "Deletecust";//maybe switch this to admin??
 				}
 				else if (customerBST.isEmptyTree() == true){
 					System.out.println("There are no customers in the database yet");
@@ -319,62 +335,89 @@ public class Menu1{
 					pagestatus = "admin";
 				}
 				else{
-					System.out.println("You are deleting" + customerBST.search(deletecc).getName() + "from the database");
+					System.out.println("You deleted"  + customerBST.search(deletecc).getName() + "from the database");
 					customerBST.delete(customerBST.search(deletecc));
+					System.out.println("If you want to delete another customer, press 1");
+					System.out.println("If you want to return to the admin menu, press any other number");
+					int d=s.nextInt();
+					if(d==1){
+						pagestatus="Deletecust";
+					}
+					else{
+						pagestatus="admin";
+					}
 				}
-				pagestatus = "admin";
+				
 			}
+			//Need to work through all situations 
 			else if (pagestatus.equals("Editcust")){
 				System.out.println("6. Edit Customer");
 				System.out.println("Enter the customer's credit card number");
 				int editcc = s.nextInt();
-				while (customerBST.search(editcc) == null){
+				if (customerBST.search(editcc) == null){
 					System.out.println("There is no customer under this credit card number");
-					System.out.println("if you want to go back to the admin menu enter 1");
+					System.out.println("If you want to go back to the admin menu enter 1");
+					System.out.println("If you want to search for another customer,press a different number");
 					int decision5 = s.nextInt();
 					if (decision5 == 1){
 						pagestatus = "admin";
 					}
 					else{
-						System.out.println("Enter the customer's credit card number");
-						editcc = s.nextInt();
+						pagestatus.equals("Editcust");
 					}
 				}
-				System.out.println("1. Edit their name");
-				System.out.println("2. Edit their credit card number");
-				System.out.println("3. Edit their email address");
-				System.out.println("4. Edit another customer");
-				int decision4 = s.nextInt();
-				while (decision4 < 1 || decision4 > 4){
-					System.out.println("Incorrect command, please enter the number corresponding to the function you wish to complete");
+
+				else if (customerBST.search(editcc)!= null){
+					System.out.println("You are editing"+ customerBST.search(editcc).getName());//how to put space before name?
 					System.out.println("1. Edit their name");
 					System.out.println("2. Edit their credit card number");
 					System.out.println("3. Edit their email address");
 					System.out.println("4. Edit another customer");
-					decision4 = s.nextInt();
-				}
-				if (decision4 == 1){
-					System.out.println("Enter the new name for this customer");
-					String newname1 = s.nextLine();
-					customerBST.search(editcc).setName(newname1);
-					pagestatus = "Editcust";
-				}
-				else if (decision4 ==2){
-					System.out.print("Enter the new credit card number for this customer");
-					int newcc1 = s.nextInt();
-					customerBST.search(editcc).setCredit(newcc1);
-					pagestatus = "Editcust";
-				}
-				else if (decision4 ==3){
-					System.out.println("Enter the new email address for this customer");
-					String newemail = s.nextLine();
-					customerBST.search(editcc).setMail(newemail);
-					pagestatus = "Editcust";
-				}
-				else{
-					pagestatus = "Editcust";
-				}
+					System.out.println("5. Return to Admin menu");
+					int decision4 = s.nextInt();
+
+				    if (decision4 < 1 || decision4 > 5){
+						System.out.println("Incorrect command, please enter the number corresponding to the function you wish to complete");
+						System.out.println("1. Edit their name");
+						System.out.println("2. Edit their credit card number");
+						System.out.println("3. Edit their email address");
+						System.out.println("4. Edit another customer");
+						decision4 = s.nextInt();
+					}
+
+					else if (decision4 == 1){
+						System.out.println("Enter the new name for this customer");
+						String newname1 = s.nextLine();
+						s.nextLine();
+						customerBST.search(editcc).setName(newname1);
+						System.out.println("Name changed to" + newname1);//Name not printing there
+					}
+
+					else if (decision4 ==2){
+						System.out.print("Enter the new credit card number for this customer");
+						int newcc1 = s.nextInt();
+						customerBST.search(editcc).setCredit(newcc1);
+						pagestatus = "Editcust";
+					}
+					else if (decision4 ==3){
+						System.out.println("Enter the new email address for this customer");
+						String newemail = s.nextLine();
+						customerBST.search(editcc).setMail(newemail);
+						pagestatus = "Editcust";
+					}
+
+					else if(decision4==4){
+						pagestatus = "Editcust";
+					}
+					else if (decision4==5){
+						pagestatus="admin";
+					}
 			}
+		}
+
+
+
+			//if cc is too long, doesnt work!
 			else if (pagestatus.equals("Searchcust")){
 				System.out.println("7. Search for Customer");
 				System.out.println("Enter the credit card number of the customer you want to search for:");
