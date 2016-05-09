@@ -309,7 +309,9 @@ public class Menu1{
 				CustomerNode cnode = new CustomerNode(cname, ccc, cemail);
 				customerBST.insert(cnode);
 				//Do we need to do anything with the customer's wishlist here????????????????????????
+				System.out.println("                          ");
 				System.out.println("Customer added to database");
+
 				System.out.println("Enter 1 to insert another customer, enter any other number to be redirected back to the admin page");
 				int decision2 = s.nextInt();
 				if (decision2 ==1){
@@ -327,7 +329,7 @@ public class Menu1{
 				int deletecc = s.nextInt();
 				if (customerBST.search(deletecc) == null){
 					System.out.println("there is no customer with this credit card number in our database");
-					pagestatus = "Deletecust";//maybe switch this to admin??
+					pagestatus = "admin";
 				}
 				else if (customerBST.isEmptyTree() == true){
 					System.out.println("There are no customers in the database yet");
@@ -335,7 +337,7 @@ public class Menu1{
 					pagestatus = "admin";
 				}
 				else{
-					System.out.println("You deleted"  + customerBST.search(deletecc).getName() + "from the database");
+					System.out.println("You deleted" + " " + customerBST.search(deletecc).getName()+" " + "from the database");
 					customerBST.delete(customerBST.search(deletecc));
 					System.out.println("If you want to delete another customer, press 1");
 					System.out.println("If you want to return to the admin menu, press any other number");
@@ -349,7 +351,7 @@ public class Menu1{
 				}
 				
 			}
-			//Need to work through all situations 
+			
 			else if (pagestatus.equals("Editcust")){
 				System.out.println("6. Edit Customer");
 				System.out.println("Enter the customer's credit card number");
@@ -368,7 +370,7 @@ public class Menu1{
 				}
 
 				else if (customerBST.search(editcc)!= null){
-					System.out.println("You are editing"+ customerBST.search(editcc).getName());//how to put space before name?
+					System.out.println("You are editing"+" "+ customerBST.search(editcc).getName());
 					System.out.println("1. Edit their name");
 					System.out.println("2. Edit their credit card number");
 					System.out.println("3. Edit their email address");
@@ -382,28 +384,62 @@ public class Menu1{
 						System.out.println("2. Edit their credit card number");
 						System.out.println("3. Edit their email address");
 						System.out.println("4. Edit another customer");
+						System.out.println("5. Return to Admin menu");
 						decision4 = s.nextInt();
 					}
 
 					else if (decision4 == 1){
 						System.out.println("Enter the new name for this customer");
-						String newname1 = s.nextLine();
 						s.nextLine();
+						String newname1 = s.nextLine();
 						customerBST.search(editcc).setName(newname1);
-						System.out.println("Name changed to" + newname1);//Name not printing there
+						System.out.println("Name changed to" + " " + newname1);
+						System.out.println("                                   ");
+						System.out.println("Press 1 to edit another customer's infromation");
+						System.out.println("Press any other number to return to the admin page");
+						int temp=s.nextInt();
+						if(temp==1){
+							pagestatus="Editcust";
+						}
+						else{
+							pagestatus="admin";
+						}
 					}
 
 					else if (decision4 ==2){
 						System.out.print("Enter the new credit card number for this customer");
 						int newcc1 = s.nextInt();
 						customerBST.search(editcc).setCredit(newcc1);
-						pagestatus = "Editcust";
+						System.out.println("Credit card changed to" + " " + newcc1);
+						System.out.println("                                   ");
+						System.out.println("Press 1 to edit another customer's infromation");
+						System.out.println("Press any other number to return to the admin page");
+						int temp1=s.nextInt();
+						if(temp1==1){
+							pagestatus="Editcust";
+						}
+						else{
+							pagestatus="admin";
+						}
+						
 					}
 					else if (decision4 ==3){
 						System.out.println("Enter the new email address for this customer");
+						s.nextLine();
 						String newemail = s.nextLine();
 						customerBST.search(editcc).setMail(newemail);
-						pagestatus = "Editcust";
+						System.out.println("New email changed to"+" "+ newemail);
+						System.out.println("                                   ");
+						System.out.println("Press 1 to edit another customer's infromation");
+						System.out.println("Press any other number to return to the admin page");
+						int temp2=s.nextInt();
+						if(temp2==1){
+							pagestatus="Editcust";
+						}
+						else{
+							pagestatus="admin";
+						}
+						
 					}
 
 					else if(decision4==4){
@@ -423,8 +459,9 @@ public class Menu1{
 				System.out.println("Enter the credit card number of the customer you want to search for:");
 				int searchcc = s.nextInt();
 				if (customerBST.search(searchcc) != null){
-					System.out.println("The customer registered under this cc number is:"+ customerBST.search(searchcc).getName());
-					System.out.println("If you want to edit this customer's account  enter 1");
+					System.out.println("The customer registered under this cc number is:"+" " +customerBST.search(searchcc).getName());
+					System.out.println("Their email address is" +" "+ customerBST.search(searchcc).getMail());
+					System.out.println("If you want to edit this customer's account enter 1");
 					System.out.println("If you want to delete this customer enter 2");
 					int ed = s.nextInt();
 					if (ed == 1){
