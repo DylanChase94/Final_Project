@@ -13,17 +13,21 @@ public class Menu2 implements java.io.Serializable{
 	public static void main (String[] args){
 
 		//initiate all of the data structures
-		BSTmovie idBST= new BSTmovie(); 
+		HashID idhash= new HashID(); 
 		BSTCustomer customerBST = new BSTCustomer();
-		BSTrd rdBST= new BSTrd();
+		//BSTrd = new BSTrd();
 		MovieHeap heap = new MovieHeap();
+		BSTmovie movieBST= new BSTmovie();
+
+
+
 		//Wishlist wishes = new Wishlist();
 
 		//BSTmovie idBST;
 		try {
 	        FileInputStream fileIn = new FileInputStream("BSTMovie.ser");
 	       	ObjectInputStream in = new ObjectInputStream(fileIn);
-	        idBST = (BSTmovie) in.readObject();
+	        movieBST = (BSTmovie) in.readObject();
 	        in.close();
 	        fileIn.close();
       	}	
@@ -57,9 +61,9 @@ public class Menu2 implements java.io.Serializable{
 
 		//BSTrd e = null;
 		try {
-	        FileInputStream fileIn = new FileInputStream("BSTrd.ser");
+	        FileInputStream fileIn = new FileInputStream("HashID.ser");
 	       	ObjectInputStream in = new ObjectInputStream(fileIn);
-	        rdBST = (BSTrd) in.readObject();
+	        idhash = (HashID) in.readObject();
 	        in.close();
 	        fileIn.close();
       	}	
@@ -68,7 +72,7 @@ public class Menu2 implements java.io.Serializable{
         	//return;
     	}	
      	catch(ClassNotFoundException c) {
-	        System.out.println("BSTrd class not found");
+	        System.out.println("HashID class not found");
 	        c.printStackTrace();
 	        return;
       	}
@@ -270,12 +274,12 @@ public class Menu2 implements java.io.Serializable{
 				int wInput=s.nextInt();
 				if (wInput==1){
 					System.out.println("Here are your choices of movies to add to your wishlist");
-					idBST.traverse();
+					movieBST.traverse();
 					System.out.println("Enter the ID of the movie you want to add to your wishlist");
 					int mchoice = s.nextInt();
 					System.out.println("Enter the index");
 					int ichoice = s.nextInt();
-					customerBST.search(ccinput).getWishlist().insert((idBST.search(wInput)), ichoice);
+					customerBST.search(ccinput).getWishlist().insert((movieBST.search(wInput)), ichoice);
 					System.out.println("Movie added to wishlist");
 				}
 				else if (wInput ==2){
@@ -305,8 +309,8 @@ public class Menu2 implements java.io.Serializable{
 				System.out.println("If the release date is October 25th, 2005 enter the date as:");
 				System.out.println("Year, month, day: 20051025");
 				int dateinput = s.nextInt();
-				if (rdBST.search(dateinput) == null){
-					System.out.println("There is no movie in our database with that id");
+				if (movieBST.search(dateinput) == null){//need to find way to see if dateinput is in the table
+					System.out.println("There is no movie in our database with that date");
 					System.out.println("Enter 1 to return the customer main menu or 2 to try again");
 					dateinput = s.nextInt();
 					if (dateinput == 1){
@@ -319,8 +323,9 @@ public class Menu2 implements java.io.Serializable{
 				}
 
 				else{
-					System.out.println("That movie in our database is:" + rdBST.search(dateinput).getTitle());
-					System.out.println("Its ID is:"+rdBST.search(dateinput).getCode()+ " " +"and the Rotten Tomatoes score is:"+rdBST.search(dateinput).getRTscore());
+					System.out.println("That movie in our database is:" + movieBST.search(dateinput).getTitle());
+					//System.out.println("Its ID is:"+ idBST.search(dateinput).getCode()); 
+					//+ "and the Rotten Tomatoes score is:"+ idBST.search(dateinput).getRTscore());
 					System.out.println("Press 1 to return to the customer main menu or 2 to search again");
 					int dateinput1=s.nextInt();
 					if(dateinput1==1){
@@ -337,18 +342,20 @@ public class Menu2 implements java.io.Serializable{
 			else if (pagestatus.equals("Searchid")){
 				System.out.println("Enter movie ID");
 				int movie_ID=s.nextInt();
-				if(idBST.search(movie_ID)!=null){
-				System.out.println("You searched for:"+idBST.search(movie_ID).getTitle());
-				System.out.println("Its release date is:"+idBST.search(movie_ID).getRdate()+" "+"and its Rotten Tomatoes score is:"+idBST.search(movie_ID).getRTscore());
+				if(idhash.lookUp(movie_ID)== null){
+					System.out.println("Movie Not Found,try again");
+				
 			}
 				else{
-				System.out.println("Movie Not Found,try again");
+					System.out.println("You searched for:"+idhash.lookUp(movie_ID));
+					//System.out.println("Its release date is:"+movieBST.search(movie_ID).getRdate()+" "+"and its Rotten Tomatoes score is:"+movieBST.search(movie_ID).getRTscore());
+					
 			}
 			pagestatus = "user";
 			}
 			else if (pagestatus.equals("Printm")){
 				System.out.println("5. Printing Movies By Release Date");
-				rdBST.traverse();
+				movieBST.traverse();//How to print a hashtable
 				pagestatus = "user";
 			}
 			else if (pagestatus.equals("DA")){
@@ -390,13 +397,23 @@ public class Menu2 implements java.io.Serializable{
 				int newscore = s.nextInt();
 				System.out.println("Enter the 5 digit ID code");
 				int newcode = s.nextInt();
-				while (idBST.search(newcode) != null){
+				/*
+				boolean checkid = true;
+				while (checkid == true){
+					if (idhash.lookUp(newcode) == null){
+						checkid = false;
+					}
+					else{
 					System.out.println("there is already a movie with that code, please enter a new code");
 					newcode = s.nextInt();
+					}
 				}
+				*/
 				MNode newmovie = new MNode(newtitle, newdate, newcode, newscore);
-				idBST.insert(newmovie);
-				rdBST.insert(newmovie);
+				
+				movieBST.insert(newmovie);
+				idhash.insert(newmovie);
+				System.out.println("inserting"+idhash.lookUp(newmovie.getCode()));
 				heap.insert(newmovie);
 				System.out.println("Your movie was successfully added to the database");
 				n = 0;
@@ -405,17 +422,18 @@ public class Menu2 implements java.io.Serializable{
 			}
 			else if (pagestatus.equals("Findworst")){
 				if (heap.isEmpty() != true){
-					//System.out.println("The worst movie in your data base is:"+heap.findMin().getTitle());
+					System.out.println("The worst movie in your data base is:"+heap.findMin().getTitle());
 					//Not sure why I dont need line above this but it works without it. With it, it prints twice
 					int t=heap.findMin().getRTscore();
-					System.out.println("Its rotten tomatoes score is:" + t);
+					System.out.println("Its rotten tomatoes score is:" + t+" "+ "Its movie ID is:"+" "+ heap.findMin().getCode());
+
 					System.out.println("Enter 1 to delete this movie, otherwise you will be redirected to the Admin menu");
 					int decision = s.nextInt();
 				    if (decision == 1){
 				    	//MNode temp = heap.findMin();
 						//check to make sure the data structures arent empty first
-						idBST.delete(heap.findMin());
-						rdBST.delete(heap.findMin());
+						movieBST.delete(heap.findMin());
+						idhash.delete(heap.findMin().getCode());
 						heap.deleteMin();
 						System.out.println("The movie has been deleted");
 			     		pagestatus = "admin";
@@ -636,7 +654,7 @@ public class Menu2 implements java.io.Serializable{
 			new FileOutputStream("BSTMovie.ser");
 			ObjectOutputStream out = 
 			new ObjectOutputStream(fileOut);
-			out.writeObject(idBST);
+			out.writeObject(movieBST);
 			out.close();
 			fileOut.close();
 			System.out.println("serialized object succesfully in BSTMovie.ser");
@@ -661,13 +679,13 @@ public class Menu2 implements java.io.Serializable{
 
       	try{
 			FileOutputStream fileOut = 
-			new FileOutputStream("BSTrd.ser");
+			new FileOutputStream("HashID.ser");
 			ObjectOutputStream out = 
 			new ObjectOutputStream(fileOut);
-			out.writeObject(rdBST);
+			out.writeObject(idhash);
 			out.close();
 			fileOut.close();
-			System.out.println("serialized object succesfully in BSTrd.ser");
+			System.out.println("serialized object succesfully in HashMovie.ser");
 		}
 		catch(IOException i) {
 			i.printStackTrace();
