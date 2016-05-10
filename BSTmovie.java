@@ -1,8 +1,9 @@
 //Binary search tree
 //Dylan Chase
 //Due April 11
+import java.io.*;
 
-public class BSTmovie {
+public class BSTmovie implements java.io.Serializable{
 	//instace variables
 	private MNode root;
 
@@ -31,10 +32,10 @@ public class BSTmovie {
 		if (p==null){
 			return null;
 		}
-		else if(key==p.getCode()){
+		else if(key==p.getRdate()){
 				return p;
 				}
-		else if (key<p.getCode()){
+		else if (key<p.getRdate()){
 				return search2(p.getLeft(),key);
 				}
 		else{
@@ -47,10 +48,10 @@ public class BSTmovie {
 			if (root==null){
 			return null;
 		}
-		else if( key==root.getCode()){
+		else if( key==root.getRdate()){
 				return root;
 				}
-		else if (key<root.getCode()){
+		else if (key<root.getRdate()){
 				return search2(root.getLeft(),key);
 				}
 		else{
@@ -62,7 +63,7 @@ public class BSTmovie {
 	//insert helper function 
 	//does not return anything
 	private void insert2(MNode temp,MNode p){
-		if (p.getCode()<temp.getCode()){
+		if (p.getRdate()<temp.getRdate()){
 			if (temp.getLeft()==null){
 				temp.setLeft(p);
 			}
@@ -92,7 +93,7 @@ public class BSTmovie {
 	public void traverse(){
 		if (root!=null){
 			traverse2(root.getLeft());
-			System.out.println(root.getCode());
+			System.out.println(root.getRdate());
 			traverse2(root.getRight());
 		}
 	}
@@ -100,7 +101,7 @@ public class BSTmovie {
 	public void traverse2(MNode temp){
 		if(temp!=null){
 			traverse2(temp.getLeft());
-			System.out.println(temp.getCode());
+			System.out.println(temp.getRdate());
 			traverse2(temp.getRight());
 		}
 	}
@@ -135,7 +136,7 @@ public class BSTmovie {
     	//creating node
     	MNode parent=root;
     	while(parent.getRight()!=t && parent.getLeft() != t){
-    		if (t.getCode()>parent.getCode()){
+    		if (t.getRdate()>parent.getRdate()){
     			parent=parent.getRight();
     		}
     		else{
@@ -181,7 +182,7 @@ public class BSTmovie {
     			//calls get parent method
     			MNode p=getParent(y);
     			//if node taken in key is less than parent key
-    			if(y.getCode()<p.getCode()){
+    			if(y.getRdate()<p.getRdate()){
     				//if both nodes are null
     				if (y.getLeft()==null && y.getRight()==null){
     					p.setLeft(null);}
@@ -258,18 +259,39 @@ public class BSTmovie {
    //print tree helper function given to us
     private void printTree2(MNode tree) {
 	if (tree != null) {
-	    System.out.print(tree.getCode() + " ");
+	    System.out.print(tree.getRdate() + " ");
             if (tree.getLeft() != null)
-	        System.out.print("Left: " + tree.getLeft().getCode() + " ");
+	        System.out.print("Left: " + tree.getLeft().getRdate() + " ");
             else
                 System.out.print("Left: null ");
             if (tree.getRight() != null)
-	        System.out.println("Right: " + tree.getRight().getCode() + " ");
+	        System.out.println("Right: " + tree.getRight().getRdate() + " ");
             else
                 System.out.println("Right: null ");
 	    	printTree2(tree.getLeft());
 	    	printTree2(tree.getRight());}
 	}
+	public static void main(String[] args){
+	BSTmovie a = new BSTmovie();
+	System.out.println("isEmptyTree = " + a.isEmptyTree());
+	MNode xNode = new MNode("Jane", 1, 1,1);
+	MNode yNode = new MNode("Joe", 2, 2,2);
+	MNode zNode = new MNode("Jack", 3, 3,3);
+	MNode kNode = new MNode("Jill", 4, 4,4);
+	MNode aNode = new MNode("Abe", 5, 5,5);
+	MNode bNode = new MNode("Beth", 6, 6,6);
+	MNode cNode = new MNode("Chuck", 7, 7,7);
+	MNode dNode = new MNode("Dot", 8, 8,8);
+	MNode mNode = new MNode("Mike", 9, 9,9);
+	MNode nNode = new MNode("Nick", 20, 10,10);
+	MNode oNode = new MNode("Otis", 11, 11,11);
+	a.insert(oNode);
+	a.insert(yNode);
+	a.insert(zNode);
+	a.insert(kNode);
+	a.insert(dNode);
+	a.insert(xNode);
+	a.traverse();
+	a.printTree();
+    }
 }
-		
-	
