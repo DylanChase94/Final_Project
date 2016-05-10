@@ -23,7 +23,7 @@ public class Menu1 implements java.io.Serializable{
 
 		//BSTmovie idBST;
 		try {
-	        FileInputStream fileIn = new FileInputStream("BSTMovie.txt");
+	        FileInputStream fileIn = new FileInputStream("BSTMovie.ser");
 	       	ObjectInputStream in = new ObjectInputStream(fileIn);
 	        idBST = (BSTmovie) in.readObject();
 	        in.close();
@@ -31,7 +31,7 @@ public class Menu1 implements java.io.Serializable{
       	}	
       	catch(IOException i) {
         	i.printStackTrace();
-        	return;
+        	//return;
     	}
      	catch(ClassNotFoundException c) {
 	        System.out.println("BSTmovie class not found");
@@ -41,7 +41,7 @@ public class Menu1 implements java.io.Serializable{
 
 		//BSTCustomer d = null;
 		try {
-	        FileInputStream fileIn = new FileInputStream("BSTCustomer.txt");
+	        FileInputStream fileIn = new FileInputStream("BSTCustomer.ser");
 	       	ObjectInputStream in = new ObjectInputStream(fileIn);
 	        customerBST = (BSTCustomer) in.readObject();
 	        in.close();
@@ -49,7 +49,7 @@ public class Menu1 implements java.io.Serializable{
       	}	
       	catch(IOException i) {
         	i.printStackTrace();
-        	return;
+        	//return;
     	}	
      	catch(ClassNotFoundException c) {
 	        System.out.println("BSTCustomer class not found");
@@ -59,7 +59,7 @@ public class Menu1 implements java.io.Serializable{
 
 		//BSTrd e = null;
 		try {
-	        FileInputStream fileIn = new FileInputStream("BSTrd.txt");
+	        FileInputStream fileIn = new FileInputStream("BSTrd.ser");
 	       	ObjectInputStream in = new ObjectInputStream(fileIn);
 	        rdBST = (BSTrd) in.readObject();
 	        in.close();
@@ -67,7 +67,7 @@ public class Menu1 implements java.io.Serializable{
       	}	
       	catch(IOException i) {
         	i.printStackTrace();
-        	return;
+        	//return;
     	}	
      	catch(ClassNotFoundException c) {
 	        System.out.println("BSTrd class not found");
@@ -77,7 +77,7 @@ public class Menu1 implements java.io.Serializable{
 
 		//MovieHeap f = null;
 		try {
-	        FileInputStream fileIn = new FileInputStream("MovieHeap.txt");
+	        FileInputStream fileIn = new FileInputStream("MovieHeap.ser");
 	       	ObjectInputStream in = new ObjectInputStream(fileIn);
 	        heap = (MovieHeap) in.readObject();
 	        in.close();
@@ -85,7 +85,7 @@ public class Menu1 implements java.io.Serializable{
       	}	
       	catch(IOException i) {
         	i.printStackTrace();
-        	return;
+        	//return;
     	}	
      	catch(ClassNotFoundException c) {
 	        System.out.println("MovieHeap class not found");
@@ -159,11 +159,13 @@ public class Menu1 implements java.io.Serializable{
 			System.out.println("5. Print Movies By Release Date");
 			System.out.println("6. Delete Account");
 			System.out.println("7. Return to Main Menu");
-			System.out.println("8. Quit");
-			while (n>=8 ||  n<=1){
+			n=s.nextInt();
+
+			while (n>=7 &&  n<1){
+					
 					n=s.nextInt();
-					s.nextLine();
-					if (n>8 ||  n<1){
+					
+					if (n>7 &&  n<1){
 						System.out.println("Incorrect Key. Please choose valid option.");
 					}
 					else{
@@ -182,61 +184,78 @@ public class Menu1 implements java.io.Serializable{
 				pagestatus = "Printm";
 			else if(n==6)
 				pagestatus = "DA";
-			else if (n==7)
+			else 
 				pagestatus = "initialPage";
-			else
-				pagestatus = "quit";
+
+
 		}
-		//s.nextInt();
+		
+
+
 			if (pagestatus.equals("Ea")){
 				System.out.println("Enter the credit card number your account is registered under");
-				int ccinput = s.nextInt(); //use this to search for this customer in the BST
-				System.out.println("What would you like to edit?");
-				System.out.println("1. Name");
-				System.out.println("2. Credit Card");
-				System.out.println("3. Email address");
-				System.out.println("4. Go back to user menu");
-				int editInput = s.nextInt();
+				int ccinput = s.nextInt();
+				if(customerBST.search(ccinput)==null){
+					System.out.println("You are not in our database. Press 1 to try again or any other number to go back to the customer menu");
+					int ea=s.nextInt();
+					if(ea==1){
+						pagestatus="Ea";
+					}
+					else{
+						pagestatus="user";
+					}
+
+				}
+
+				else{
+					System.out.println("Hello"+" "+ customerBST.search(ccinput).getName());
+					System.out.println("What about yourself would you like to edit?");
+					System.out.println("1. Name");
+					System.out.println("2. Credit Card");
+					System.out.println("3. Email address");
+					System.out.println("4. Go back to user menu");
+					int editInput = s.nextInt();
 
 					if (editInput ==1){
-						System.out.println("Enter the name you want registered under this account");
-						System.out.println("Your current account name is:"+ customerBST.search(ccinput).getName());
+						System.out.println("Your current account name is:"+" "+ customerBST.search(ccinput).getName());
+						System.out.println("What do you want to change your name to?");
 						s.nextLine();
 						String newName = s.nextLine();
 						customerBST.search(ccinput).setName(newName);
-						 //change their name
-
-					}
-					else if (editInput ==2){
-						System.out.println("Enter the credit card number you want registered under this account");
-						System.out.println("Your current number is:"+ customerBST.search(ccinput).getCredit());
-						int newcc = s.nextInt();
-						customerBST.search(ccinput).setCredit(newcc);
-						//edit cc
-					}
-					else if (editInput ==3){
-						System.out.println("Enter the email address you want registered under this account");
-						System.out.println("Your current account name is:"+ customerBST.search(ccinput).getName());
-
-						//edit email address
-					}
-					else if (editInput ==4){
-						pagestatus = "user";
+						System.out.println("Your name has been changed to"+" "+newName);
+						System.out.println("Press 1 to edit more information or any other number return to the customer page");
+						int ei1=s.nextInt();
+						if(ei1==1){
+							pagestatus="Ea";
+						}
+						else{
+							pagestatus="user";
+						}
 					}
 
 
 			}
-			//im not sure how the wishlist is accessed
+		}
+
+			
 			else if (pagestatus.equals("Ew")){
 				System.out.println("2. Acess Wishlist");
 				System.out.println("Enter the credit card number your account is registered under");
 				int ccinput = s.nextInt();
+				System.out.println("Welcome"+" "+ customerBST.search(ccinput).getName());
+				System.out.println("Here is your wishlist:");
+				customerBST.search(ccinput).getWishlist().printMovies();
+
 				System.out.println("What would you like to edit?");
 				System.out.println("1. Add a movie to your wishlist");
-				System.out.println("2. watch a movie");
-				System.out.println("3. Email address");
+				System.out.println("2. Watch your favorite movie");
+				System.out.println("3. Delete movie");
 				System.out.println("4. Go back to user menu");
 
+				/*int WLinput=s.nextInt();
+				if (WLinput==1){
+					new MNode
+				}*/
 
 			}
 
@@ -246,28 +265,44 @@ public class Menu1 implements java.io.Serializable{
 				System.out.println("If the release date is October 25th, 2005 enter the date as:");
 				System.out.println("Year, month, day: 20051025");
 				int dateinput = s.nextInt();
-				while (rdBST.search(dateinput) != null){
-					System.out.println("there is no movie in our database with that id");
-					System.out.println("Enter 1 to return the user main menu, or enter another date");
+				if (rdBST.search(dateinput) == null){
+					System.out.println("There is no movie in our database with that id");
+					System.out.println("Enter 1 to return the customer main menu or 2 to try again");
 					dateinput = s.nextInt();
 					if (dateinput == 1){
 						pagestatus = "user";
 					}
 					else{
-						System.out.println("That movie is in our database:" + rdBST.search(dateinput).getTitle());
-						pagestatus = "user";
+						pagestatus="Searchmd";
+					}	
+				
+				}
+
+				else{
+					System.out.println("That movie in our database is:" + rdBST.search(dateinput).getTitle());
+					System.out.println("Its ID is:"+rdBST.search(dateinput).getCode()+ " " +"and the Rotten Tomatoes score is:"+rdBST.search(dateinput).getRTscore());
+					System.out.println("Press 1 to return to the customer main menu or 2 to search again");
+					int dateinput1=s.nextInt();
+					if(dateinput1==1){
+						pagestatus="user";
 					}
-					
+					else{
+						pagestatus="Searchmd";
+					}
+
 				}
 			}
+
+
 			else if (pagestatus.equals("Searchid")){
 				System.out.println("Enter movie ID");
 				int movie_ID=s.nextInt();
 				if(idBST.search(movie_ID)!=null){
-				System.out.println(idBST.search(movie_ID).getTitle());
+				System.out.println("You searched for:"+idBST.search(movie_ID).getTitle());
+				System.out.println("Its release date is:"+idBST.search(movie_ID).getRdate()+" "+"and its Rotten Tomatoes score is:"+idBST.search(movie_ID).getRTscore());
 			}
 				else{
-				System.out.println("Movie Not Found");
+				System.out.println("Movie Not Found,try again");
 			}
 			pagestatus = "user";
 			}
@@ -278,7 +313,7 @@ public class Menu1 implements java.io.Serializable{
 			}
 			else if (pagestatus.equals("DA")){
 				System.out.println("6. Delete Account");
-				System.out.println("Enter the credit card number of the count you want to delete:");
+				System.out.println("Enter the credit card number of the account you want to delete:");
 				int ccinput1 = s.nextInt();
 				System.out.println("This account is registered to" + customerBST.search(ccinput1).getName());
 				System.out.println("To delete their account enter 1, to enter 2 to return to the user menu");
@@ -297,6 +332,7 @@ public class Menu1 implements java.io.Serializable{
 				System.out.println("7. Returning to Main Menu");
 				pagestatus = "initialPage";
 			}
+		
 		
 	
 			//ADMIN SECTION
@@ -336,6 +372,10 @@ public class Menu1 implements java.io.Serializable{
 					System.out.println("Enter 1 to delete this movie, otherwise you will be redirected to the Admin menu");
 					int decision = s.nextInt();
 				    if (decision == 1){
+				    	//MNode temp = heap.findMin();
+						//check to make sure the data structures arent empty first
+						idBST.delete(heap.findMin());
+						rdBST.delete(heap.findMin());
 						heap.deleteMin();
 						System.out.println("The movie has been deleted");
 			     		pagestatus = "admin";
@@ -553,13 +593,13 @@ public class Menu1 implements java.io.Serializable{
 
 		try{
 			FileOutputStream fileOut = 
-			new FileOutputStream("BSTMovie.txt");
+			new FileOutputStream("BSTMovie.ser");
 			ObjectOutputStream out = 
 			new ObjectOutputStream(fileOut);
 			out.writeObject(idBST);
 			out.close();
 			fileOut.close();
-			System.out.println("serialized object succesfully in BSTMovie.txt");
+			System.out.println("serialized object succesfully in BSTMovie.ser");
 		}
 		catch(IOException i) {
 			i.printStackTrace();
@@ -567,13 +607,13 @@ public class Menu1 implements java.io.Serializable{
 
       	try{
 			FileOutputStream fileOut = 
-			new FileOutputStream("BSTCustomer.txt");
+			new FileOutputStream("BSTCustomer.ser");
 			ObjectOutputStream out = 
 			new ObjectOutputStream(fileOut);
 			out.writeObject(customerBST);
 			out.close();
 			fileOut.close();
-			System.out.println("serialized object succesfully in BSTCustomer.txt");
+			System.out.println("serialized object succesfully in BSTCustomer.ser");
 		}
 		catch(IOException i) {
 			i.printStackTrace();
@@ -581,13 +621,13 @@ public class Menu1 implements java.io.Serializable{
 
       	try{
 			FileOutputStream fileOut = 
-			new FileOutputStream("BSTrd.txt");
+			new FileOutputStream("BSTrd.ser");
 			ObjectOutputStream out = 
 			new ObjectOutputStream(fileOut);
 			out.writeObject(rdBST);
 			out.close();
 			fileOut.close();
-			System.out.println("serialized object succesfully in BSTrd.txt");
+			System.out.println("serialized object succesfully in BSTrd.ser");
 		}
 		catch(IOException i) {
 			i.printStackTrace();
@@ -595,13 +635,13 @@ public class Menu1 implements java.io.Serializable{
 
       	try{
 			FileOutputStream fileOut = 
-			new FileOutputStream("MovieHeap.txt");
+			new FileOutputStream("MovieHeap.ser");
 			ObjectOutputStream out = 
 			new ObjectOutputStream(fileOut);
 			out.writeObject(heap);
 			out.close();
 			fileOut.close();
-			System.out.println("serialized object succesfully in MovieHeap.txt");
+			System.out.println("serialized object succesfully in MovieHeap.ser");
 		}
 		catch(IOException i) {
 			i.printStackTrace();
