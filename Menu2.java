@@ -424,19 +424,31 @@ public class Menu2 implements java.io.Serializable{
 				System.out.println("6. Delete Account");
 				System.out.println("Enter the last 4 digits of the credit card number of the account you want to delete:");
 				int ccinput1 = s.nextInt();
-				System.out.println("This account is registered to"+" " + customerBST.search(ccinput1).getName());
-				System.out.println("To delete their account enter 1, to enter 2 to return to the user menu");
-				int deleteinput = s.nextInt();
-				if (deleteinput == 1){
-					customerBST.delete(customerBST.search(ccinput1));
-					System.out.println("You are no longer registered in the database");
-					pagestatus = "user";
+				if (customerBST.isEmptyTree()==false){
+					System.out.println("This account is registered to"+" " + customerBST.search(ccinput1).getName());
+					System.out.println("To delete their account enter 1, to enter 2 to return to the user menu");
+					int deleteinput = s.nextInt();
+					if (deleteinput == 1){
+						customerBST.delete(customerBST.search(ccinput1));
+						System.out.println("You are no longer registered in the database");
+						pagestatus = "user";
+					}
+					else {
+						pagestatus = "user";
+					}
+
 				}
-				else {
-					pagestatus = "user";
+
+				else{
+					System.out.println("There are no customers in the database");
+					pagestatus="user";
 				}
 
 			}
+				
+
+
+
 			else if (pagestatus.equals("initialPage")){
 				System.out.println("7. Returning to Main Menu");
 				pagestatus = "initialPage";
