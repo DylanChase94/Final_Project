@@ -39,7 +39,7 @@ public class Wishlist implements java.io.Serializable{
 
 	public void watchMovie(){
 		if (wishlist[0].checkStock()){
-			System.out.println("You are now watching your favorite movie.");
+			System.out.println("You are now watching"+" "+wishlist[0].getTitle());
 		}
 		else{
 			System.out.println("Movie no longer avalible.");
@@ -48,7 +48,7 @@ public class Wishlist implements java.io.Serializable{
     }
 
     public void printMovies(){
-    	for(int i = 0; i < 20; i++){
+    	for(int i = 0; i < n; i++){
     		if (wishlist[i] == null){
     			System.out.println("You have no movie in this position:"+i);
 
@@ -65,15 +65,12 @@ public class Wishlist implements java.io.Serializable{
     	MNode x = new MNode("jack", 20011011, 12345, 1);
 		MNode y = new MNode("jill", 20030303, 12346, 2);
 		MNode z = new MNode("bob", 20100304, 12347,2);
-
 		a.getWishlist().insert(x,7);
 		a.getWishlist().insert(y,1);
 		a.getWishlist().printMovies();
 		System.out.println();
 		a.getWishlist().insert(z,2);
 		a.getWishlist().printMovies();
-
-
     }
     */
 }

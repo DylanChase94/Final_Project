@@ -330,7 +330,7 @@ public class Menu2 implements java.io.Serializable{
 					int mchoice = s.nextInt();
 					System.out.println("Enter the index");
 					int ichoice = s.nextInt();
-					customerBST.search(ccinput).getWishlist().insert(movieBST.search(wInput), ichoice);
+					customerBST.search(ccinput).getWishlist().insert(movieBST.search(mchoice), ichoice);
 					System.out.println("Movie added to wishlist");
 					pagestatus="user";
 				}
@@ -342,6 +342,7 @@ public class Menu2 implements java.io.Serializable{
 					System.out.println("Enter the index number of the movie you want to delete from your wishlist");
 					int deletew = s.nextInt();
 					customerBST.search(ccinput).getWishlist().delete(deletew);
+					System.out.println("Your movie has been deleted");
 
 				}
 				else if(wInput==4){
@@ -513,6 +514,8 @@ public class Menu2 implements java.io.Serializable{
 						//check to make sure the data structures arent empty first
 					
 						MNode delNode = movieBST.search(heap.findMin().getRdate());
+						boolean isitinstock = false;
+						heap.findMin().changeStatus(isitinstock);
 						movieBST.delete(delNode);
 						idhash.delete(heap.findMin().getCode());
 						heap.deleteMin();
