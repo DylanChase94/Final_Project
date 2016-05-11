@@ -131,7 +131,8 @@ public class Menu2 implements java.io.Serializable{
 			System.out.println("6. Search for Customer");
 			System.out.println("7. Return to Main Menu");
 			System.out.println("8. Quit");
-			while (n>=8 ||  n<=1){
+			try{
+				while (n>=8 ||  n<=1){
 					n=s.nextInt();
 					s.nextLine();
 					if (n>8 ||  n<1){
@@ -140,7 +141,7 @@ public class Menu2 implements java.io.Serializable{
 					else{
 						break;
 					}
-			}
+				}	
 			if (n==1)
 				pagestatus = "Addmovie";
 			else if(n==2)
@@ -157,6 +158,11 @@ public class Menu2 implements java.io.Serializable{
 				pagestatus = "initialPage";
 			else
 				pagestatus = "quit";
+			}
+			catch(java.util.InputMismatchException ex){
+				System.out.println("Please enter a valid input");
+				s.nextLine();
+			}
 		}
 		else if (pagestatus.equals("user")){
 			int c=0;
@@ -168,39 +174,39 @@ public class Menu2 implements java.io.Serializable{
 			System.out.println("5. Print Movies By Release Date");
 			System.out.println("6. Delete Account");
 			System.out.println("7. Return to Main Menu");
-			n=s.nextInt();
-
-			while (n>=7 &&  n<1){
-					
-					n=s.nextInt();
-					
+			try{
+				n=s.nextInt();
+				while (n>=7 &&  n<1){
 					if (n>7 &&  n<1){
 						System.out.println("Incorrect Key. Please choose valid option.");
 					}
 					else{
 						break;
 					}
+				n=s.nextInt();
+				}
+				if (n==1)
+					pagestatus = "Ea";
+				else if(n==2)
+					pagestatus = "Ew";
+				else if(n==3)
+					pagestatus = "Searchmd";
+				else if(n==4)
+					pagestatus = "Searchid";
+				else if(n==5)
+					pagestatus = "Printm";
+				else if(n==6)
+					pagestatus = "DA";
+				else 
+					pagestatus = "initialPage";
 			}
-			if (n==1)
-				pagestatus = "Ea";
-			else if(n==2)
-				pagestatus = "Ew";
-			else if(n==3)
-				pagestatus = "Searchmd";
-			else if(n==4)
-				pagestatus = "Searchid";
-			else if(n==5)
-				pagestatus = "Printm";
-			else if(n==6)
-				pagestatus = "DA";
-			else 
-				pagestatus = "initialPage";
-
-
+			catch(java.util.InputMismatchException ex){
+				System.out.println("Please enter a valid input");
+				s.nextLine();
+			}
 		}
-		
 
-
+		try{
 			if (pagestatus.equals("Ea")){
 				System.out.println("Enter the last 4 digits of the credit card number that your account is registered under");
 				int ccinput = s.nextInt();
@@ -435,12 +441,17 @@ public class Menu2 implements java.io.Serializable{
 				System.out.println("7. Returning to Main Menu");
 				pagestatus = "initialPage";
 			}
+		}
+		catch(java.util.InputMismatchException ex){
+				System.out.println("Please enter a valid input");
+				s.nextLine();
+			}
 		
 		
 	
 			//ADMIN SECTION
 
-
+		try{
 			//movies leaving database when running the program again
 			if (pagestatus.equals("Addmovie")){
 				System.out.println("1. Add Movie");
@@ -663,8 +674,8 @@ public class Menu2 implements java.io.Serializable{
 					else if (decision4==5){
 						pagestatus="admin";
 					}
+				}
 			}
-		}
 
 
 
@@ -704,6 +715,11 @@ public class Menu2 implements java.io.Serializable{
 				}
 			}
 		}
+		catch(java.util.InputMismatchException ex){
+				System.out.println("Please enter a valid input");
+				s.nextLine();
+			}
+	}
 
 		try{
 			FileOutputStream fileOut = 

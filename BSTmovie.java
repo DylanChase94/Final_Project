@@ -93,7 +93,7 @@ public class BSTmovie implements java.io.Serializable{
 	public void traverse(){
 		if (root!=null){
 			traverse2(root.getLeft());
-			System.out.println("Title:"+root.getTitle()+"Release Date:"+root.getRdate()+" "+" ID:"+root.getCode());
+			System.out.println("Title:"+root.getTitle()+" "+"Release Date:"+root.getRdate()+" "+" ID:"+root.getCode());
 			traverse2(root.getRight());
 		}
 	}
@@ -101,7 +101,7 @@ public class BSTmovie implements java.io.Serializable{
 	public void traverse2(MNode temp){
 		if(temp!=null){
 			traverse2(temp.getLeft());
-			System.out.println("Title:"+temp.getTitle()+" Release Date:"+temp.getRdate()+" "+" ID:"+root.getCode());
+			System.out.println("Title:"+temp.getTitle()+" " +"Release Date:"+temp.getRdate()+" "+" ID:"+temp.getCode());
 			traverse2(temp.getRight());
 		}
 	}/*
