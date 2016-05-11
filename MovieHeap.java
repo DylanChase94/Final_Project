@@ -95,7 +95,6 @@ public class MovieHeap implements java.io.Serializable{
 		
 		int i =0;
 		s[i].changeStatus(false);
-		System.out.println("The movie with the worst Rotten Tomatoes score was deleted");
 		System.out.println("The movie deleted was:" + s[i].getTitle());
 		System.out.println("It's score was:" + s[i].getRTscore());
 
