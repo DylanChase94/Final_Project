@@ -16,7 +16,7 @@ public class MovieHeap implements java.io.Serializable{
 	}
 	//return the node at index 0
 	public MNode findMin() {
-		System.out.println("The movie with the worst Rotten Tomatoes score is:" + s[0].getTitle());
+		//System.out.println("The movie with the worst Rotten Tomatoes score is:" + s[0].getTitle());
 		return s[0];
 	}
 	//helper function that finds the parent of a given node, using its index

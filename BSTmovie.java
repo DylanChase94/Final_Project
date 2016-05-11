@@ -93,7 +93,7 @@ public class BSTmovie implements java.io.Serializable{
 	public void traverse(){
 		if (root!=null){
 			traverse2(root.getLeft());
-			System.out.println(root.getRdate());
+			System.out.println("Title:"+root.getTitle()+"Release Date:"+root.getRdate()+" "+" ID:"+root.getCode());
 			traverse2(root.getRight());
 		}
 	}
@@ -101,10 +101,26 @@ public class BSTmovie implements java.io.Serializable{
 	public void traverse2(MNode temp){
 		if(temp!=null){
 			traverse2(temp.getLeft());
-			System.out.println(temp.getRdate());
+			System.out.println("Title:"+temp.getTitle()+" Release Date:"+temp.getRdate()+" "+" ID:"+root.getCode());
 			traverse2(temp.getRight());
 		}
+	}/*
+	public void traverse3(){
+		if (root!=null){
+			traverse4(root.getLeft());
+			System.out.println(root.getCode()+" "+root.getTitle());
+			traverse4(root.getRight());
+		}
 	}
+	//traverse helper function 
+	public void traverse4(MNode temp){
+		if(temp!=null){
+			traverse4(temp.getLeft());
+			System.out.println(temp.getCode()+" "+temp.getTitle());
+			traverse4(temp.getRight());
+		}
+	}
+	*/
 	
 	
 	//print function given to us

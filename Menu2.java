@@ -255,7 +255,7 @@ public class Menu2 implements java.io.Serializable{
 
 					if(customerBST.search(ccinput).getWishlist().isEmpty()){
 						System.out.println("Your wishlist is empty");
-						pagestatus="Ew";
+						pagestatus="admin";
 					}
 					else{
 						System.out.println("Here is your wishlist:");
@@ -281,6 +281,7 @@ public class Menu2 implements java.io.Serializable{
 					int ichoice = s.nextInt();
 					customerBST.search(ccinput).getWishlist().insert((movieBST.search(wInput)), ichoice);
 					System.out.println("Movie added to wishlist");
+					pagestatus="user";
 				}
 				else if (wInput ==2){
 					customerBST.search(ccinput).getWishlist().watchMovie();
@@ -342,13 +343,17 @@ public class Menu2 implements java.io.Serializable{
 			else if (pagestatus.equals("Searchid")){
 				System.out.println("Enter movie ID");
 				int movie_ID=s.nextInt();
-				if(idhash.lookUp(movie_ID)== null){
-					System.out.println("Movie Not Found,try again");
+				if(idhash.lookUp(movie_ID)!= null){
+					System.out.println("You searched for:"+idhash.lookUp(movie_ID));
+					//System.out.println("Its release date is:"+movieBST.search(movie_ID).getRdate()+" "+"and its Rotten Tomatoes score is:"+movieBST.search(movie_ID).getRTscore());
+					
 				
 			}
 				else{
-					System.out.println("You searched for:"+idhash.lookUp(movie_ID));
-					//System.out.println("Its release date is:"+movieBST.search(movie_ID).getRdate()+" "+"and its Rotten Tomatoes score is:"+movieBST.search(movie_ID).getRTscore());
+
+					System.out.println("Movie Not Found,try again");
+					
+					
 					
 			}
 			pagestatus = "user";
@@ -397,23 +402,23 @@ public class Menu2 implements java.io.Serializable{
 				int newscore = s.nextInt();
 				System.out.println("Enter the 5 digit ID code");
 				int newcode = s.nextInt();
-				/*
+				
 				boolean checkid = true;
 				while (checkid == true){
 					if (idhash.lookUp(newcode) == null){
 						checkid = false;
 					}
 					else{
-					System.out.println("there is already a movie with that code, please enter a new code");
+					System.out.println("There is already a movie with that code, please enter a new code");
 					newcode = s.nextInt();
 					}
 				}
-				*/
+				
 				MNode newmovie = new MNode(newtitle, newdate, newcode, newscore);
 				
 				movieBST.insert(newmovie);
 				idhash.insert(newmovie);
-				System.out.println("inserting"+idhash.lookUp(newmovie.getCode()));
+				System.out.println("inserting "+idhash.lookUp(newmovie.getCode()));
 				heap.insert(newmovie);
 				System.out.println("Your movie was successfully added to the database");
 				n = 0;

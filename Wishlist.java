@@ -3,14 +3,19 @@ PT Prigoda
 5/1/16
 Final Project
 */
+import java.io.*;
 
-public class Wishlist{
+public class Wishlist implements java.io.Serializable{
 	private MNode[] wishlist;
 	private int n;
 
 	public Wishlist(){
 		wishlist = new MNode[20];
 		n = 0;
+	}
+
+	public Boolean isEmpty(){
+		return n==0;
 	}
 
 //user inputs wrong nmber check at menu
@@ -43,8 +48,14 @@ public class Wishlist{
 
     public void printMovies(){
     	for(int i = 0; i < n; i++){
+    		if (wishlist[i] == null){
+    			System.out.println("You have no movie in this position:"+i);
+
+    		}
+    		else{
     		System.out.println(wishlist[i].getTitle());
     		System.out.println(wishlist[i].getCode());
+    		}
     	}
     }
 }
