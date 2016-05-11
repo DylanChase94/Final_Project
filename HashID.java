@@ -29,7 +29,7 @@ public class HashID implements java.io.Serializable{
 		}
 		else{
 
-			while (h[pos2] != null && (h[pos2].getCode() != code && n < 7)){
+			while (h[pos2] != null && (h[pos2].getCode() != code && n < 257)){
 			pos2 = (pos2 + 1) % 7;
 			n = n +1;
 		}
@@ -44,7 +44,7 @@ public class HashID implements java.io.Serializable{
 	public void insert (MNode x){ //this method finds a spot in the array and inserts a MovieNode 
 		int pos1 = hash1(x.getCode());
 		int pos2 = hash2(x.getCode());
-		if (n==7){
+		if (n==257){
 			System.out.println("Hash Full");
 		}
 		else{
@@ -77,7 +77,7 @@ public class HashID implements java.io.Serializable{
 					n--;
 				}
 				else{
-					while (h[pos2].getCode() != code && n < 7){
+					while (h[pos2].getCode() != code && n < 257){
 					pos2 = (pos2 + 1) % 7;
 					n = n +1;
 					}
