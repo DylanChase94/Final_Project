@@ -326,11 +326,11 @@ public class Menu2 implements java.io.Serializable{
 				if (wInput==1){
 					System.out.println("Here are your choices of movies to add to your wishlist");
 					movieBST.traverse();
-					System.out.println("Enter the ID of the movie you want to add to your wishlist");
+					System.out.println("Enter the release date of the movie you want to add to your wishlist");
 					int mchoice = s.nextInt();
 					System.out.println("Enter the index");
 					int ichoice = s.nextInt();
-					customerBST.search(ccinput).getWishlist().insert((movieBST.search(wInput)), ichoice);
+					customerBST.search(ccinput).getWishlist().insert(movieBST.search(wInput), ichoice);
 					System.out.println("Movie added to wishlist");
 					pagestatus="user";
 				}
@@ -511,10 +511,12 @@ public class Menu2 implements java.io.Serializable{
 				    if (decision == 1){
 				    	//MNode temp = heap.findMin();
 						//check to make sure the data structures arent empty first
-						movieBST.delete(heap.findMin());
+					
+						MNode delNode = movieBST.search(heap.findMin().getRdate());
+						movieBST.delete(delNode);
 						idhash.delete(heap.findMin().getCode());
 						heap.deleteMin();
-						System.out.println("The movie has been deleted");
+						//System.out.println("The movie has been deleted");
 			     		pagestatus = "admin";
 					}
 					else{
@@ -769,7 +771,7 @@ public class Menu2 implements java.io.Serializable{
 			out.writeObject(idhash);
 			out.close();
 			fileOut.close();
-			System.out.println("serialized object succesfully in HashMovie.ser");
+			System.out.println("serialized object succesfully in HashID.ser");
 		}
 		catch(IOException i) {
 			i.printStackTrace();
