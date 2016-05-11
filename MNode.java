@@ -43,7 +43,7 @@ public class MNode implements java.io.Serializable{
 	public boolean checkStock(){ //checks to see if the movie is in stock
 		return inStock;
 	}
-	public MNode getLeft(){ //gets teh left child of a node
+	public MNode getLeft(){ //gets the left child of a node
 		return left;
 	}
 	//public MNode getLeftb(){
