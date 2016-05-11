@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 import java.io.*;
+import java.util.InputMismatchException;
 
 public class Menu2 implements java.io.Serializable{
 	private int n;
@@ -100,19 +101,25 @@ public class Menu2 implements java.io.Serializable{
 
 		while (!pagestatus.equals("quit")){
 			int n = -1;
-			if(pagestatus.equals("initialPage"))
-			{
-				System.out.println("Enter 1 for Admin or 2 for Customer");		
-				while(n != 1 && n != 2){
-		   			n=s.nextInt();
-		   			if (n != 1 && n != 2){
-		   				System.out.println("You did not enter 1 or 2");
-		   			}
+			try{
+				if(pagestatus.equals("initialPage"))
+				{
+					System.out.println("Enter 1 for Admin or 2 for Customer");		
+					while(n != 1 && n != 2){
+			   			n=s.nextInt();
+			   			if (n != 1 && n != 2){
+			   				System.out.println("You did not enter 1 or 2");
+			   			}
+					}
+					if(n==1)
+						pagestatus="admin";
+					else
+						pagestatus="user";
 				}
-				if(n==1)
-					pagestatus="admin";
-				else
-					pagestatus="user";
+			}
+			catch(java.util.InputMismatchException ex){
+				System.out.println("Please enter a valid input");
+				s.nextLine();
 			}
 		if(pagestatus.equals("admin")){
 			System.out.println("This is the Admin page");
@@ -235,6 +242,44 @@ public class Menu2 implements java.io.Serializable{
 						}
 					}
 
+					else if(editInput==2){
+						System.out.println("Enter the last 4 digits of the credit card you want to change your account to");
+						int newcc=s.nextInt();
+						customerBST.search(ccinput).setCredit(newcc);
+						System.out.println("Your new cc number has been changed to"+" "+newcc);
+						System.out.println("Press 1 to edit more information or any other number return to the customer page");
+						int ei2=s.nextInt();
+						if(ei2==1){
+							pagestatus="Ea";
+						}
+						else{
+							pagestatus="user";
+						}
+
+					}
+
+
+					else if(editInput==3){
+						System.out.println("Enter the new email address you want your account to be under");
+						s.nextLine();
+						String newemail=s.nextLine();
+						System.out.println("Your new email address has been changed to"+" "+ newemail);
+						System.out.println("Press 1 to edit more information or any other number return to the customer page");
+						int ei3=s.nextInt();
+						if(ei3==1){
+							pagestatus="Ea";
+						}
+						else{
+							pagestatus="user";
+						}
+
+					}
+
+					else if(editInput==4){
+						pagestatus="user";
+					}
+
+
 
 			}
 		}
@@ -345,7 +390,8 @@ public class Menu2 implements java.io.Serializable{
 				int movie_ID=s.nextInt();
 				if(idhash.lookUp(movie_ID)!= null){
 					System.out.println("You searched for:"+idhash.lookUp(movie_ID));
-					//System.out.println("Its release date is:"+movieBST.search(movie_ID).getRdate()+" "+"and its Rotten Tomatoes score is:"+movieBST.search(movie_ID).getRTscore());
+					//System.out.println("Its release date is:"+movieBST.search(movie_ID).getRdate());
+					//System.out.println("its Rotten Tomatoes score is:"+movieBST.search(movie_ID).getRTscore());
 					
 				
 			}
@@ -353,26 +399,31 @@ public class Menu2 implements java.io.Serializable{
 
 					System.out.println("Movie Not Found,try again");
 					
-					
-					
+						
 			}
 			pagestatus = "user";
 			}
 			else if (pagestatus.equals("Printm")){
-				System.out.println("5. Printing Movies By Release Date");
-				movieBST.traverse();//How to print a hashtable
-				pagestatus = "user";
+				if(movieBST.isEmptyTree()==false){
+					System.out.println("5. Printing Movies By Release Date");
+					movieBST.traverse();//How to print a hashtable
+					pagestatus = "user";
+				}
+				else{
+					System.out.println("There are no movies in the database");
+					pagestatus="user";
+				}
 			}
 			else if (pagestatus.equals("DA")){
 				System.out.println("6. Delete Account");
 				System.out.println("Enter the last 4 digits of the credit card number of the account you want to delete:");
 				int ccinput1 = s.nextInt();
-				System.out.println("This account is registered to" + customerBST.search(ccinput1).getName());
+				System.out.println("This account is registered to"+" " + customerBST.search(ccinput1).getName());
 				System.out.println("To delete their account enter 1, to enter 2 to return to the user menu");
 				int deleteinput = s.nextInt();
 				if (deleteinput == 1){
 					customerBST.delete(customerBST.search(ccinput1));
-					System.out.println("This customer is no longer registered in our database");
+					System.out.println("You are no longer registered in the database");
 					pagestatus = "user";
 				}
 				else {
@@ -571,7 +622,7 @@ public class Menu2 implements java.io.Serializable{
 					}
 
 					else if (decision4 ==2){
-						System.out.print("Enter the 4 digit credit card number for this customer");
+						System.out.print("Enter the 4 digit credit CC number you want to change to:");
 						int newcc1 = s.nextInt();
 						customerBST.search(editcc).setCredit(newcc1);
 						System.out.println("Credit card changed to" + " " + newcc1);
