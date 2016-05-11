@@ -336,6 +336,7 @@ public class Menu2 implements java.io.Serializable{
 				}
 				else if (wInput ==2){
 					customerBST.search(ccinput).getWishlist().watchMovie();
+					pagestatus="user";
 				}
 				else if (wInput==3){
 					customerBST.search(ccinput).getWishlist().printMovies();
