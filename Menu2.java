@@ -89,7 +89,7 @@ public class Menu2 implements java.io.Serializable{
       	catch(IOException i) {
         	i.printStackTrace();
         	//return;
-    	}	
+    	}//catches it if the heap is not found	
      	catch(ClassNotFoundException c) {
 	        System.out.println("MovieHeap class not found");
 	        c.printStackTrace();
@@ -98,12 +98,12 @@ public class Menu2 implements java.io.Serializable{
 
 		Scanner s=new Scanner(System.in);
 		String pagestatus = "initialPage";
-
+		//run the code until the user quits the program
 		while (!pagestatus.equals("quit")){
 			int n = -1;
-			try{
+			try{	//initial page, choose admin or user function
 				if(pagestatus.equals("initialPage"))
-				{
+				{	//Prompts the user to be a admin or customer
 					System.out.println("Enter 1 for Admin or 2 for Customer");		
 					while(n != 1 && n != 2){
 			   			n=s.nextInt();
