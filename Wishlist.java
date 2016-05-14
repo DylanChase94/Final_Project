@@ -5,6 +5,7 @@ Final Project
 */
 import java.io.*;
 
+//creates wish list
 public class Wishlist implements java.io.Serializable{
 	private MNode[] wishlist;
 	private int n;
@@ -13,7 +14,7 @@ public class Wishlist implements java.io.Serializable{
 		wishlist = new MNode[20];
 		n = 0;
 	}
-
+	//checks to see if it's empty
 	public Boolean isEmpty(){
 		return n==0;
 	}
@@ -26,30 +27,30 @@ public class Wishlist implements java.io.Serializable{
 		}
 	}
 
-	public void insert(MNode newNode, int index){
+	public void insert(MNode newNode, int index){ //inserts new node
 		n++;
 		if (index > n) {
-			index = n;
+			index = n; //at a certain index
 		}
-		for (int i = n; i >= index; i--){
+		for (int i = n; i >= index; i--){ //places movie in the index slot of the wishlist
 				wishlist[i] = wishlist[i-1];
 		}
 		wishlist[index-1] = newNode;
 	}
 
 	public void watchMovie(){
-		if (wishlist[0].checkStock()){
+		if (wishlist[0].checkStock()){ //checks to see if the movie is in stock
 			System.out.println("You are now watching"+" "+wishlist[0].getTitle());
 		}
 		else{
 			System.out.println("Movie no longer avalible.");
 		}
-		delete(0);
+		delete(0); //deletes movie once it is watched
     }
 
     public void printMovies(){
     	for(int i = 0; i < n; i++){
-    		if (wishlist[i] == null){
+    		if (wishlist[i] == null){ //checks index to see if movie is there
     			System.out.println("You have no movie in this position:"+i);
 
     		}
