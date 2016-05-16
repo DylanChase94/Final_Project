@@ -16,15 +16,13 @@ public class Menu2 implements java.io.Serializable{
 		//initiate all of the data structures
 		HashID idhash= new HashID(); 
 		BSTCustomer customerBST = new BSTCustomer();
-		//BSTrd = new BSTrd();
 		MovieHeap heap = new MovieHeap();
 		BSTmovie movieBST= new BSTmovie();
 
 
 
-		//Wishlist wishes = new Wishlist();
 
-		//BSTmovie idBST;
+		//seralziation for when program is opened 
 		try {
 	        FileInputStream fileIn = new FileInputStream("BSTMovie.ser");
 	       	ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -34,7 +32,7 @@ public class Menu2 implements java.io.Serializable{
       	}	
       	catch(IOException i) {
         	i.printStackTrace();
-        	//return;
+        	
     	}
      	catch(ClassNotFoundException c) {
 	        System.out.println("BSTmovie class not found");
@@ -42,7 +40,7 @@ public class Menu2 implements java.io.Serializable{
 	        return;
       	}
 
-		//BSTCustomer d = null;
+	
 		try {
 	        FileInputStream fileIn = new FileInputStream("BSTCustomer.ser");
 	       	ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -52,7 +50,7 @@ public class Menu2 implements java.io.Serializable{
       	}	
       	catch(IOException i) {
         	i.printStackTrace();
-        	//return;
+        	
     	}	
      	catch(ClassNotFoundException c) {
 	        System.out.println("BSTCustomer class not found");
@@ -60,7 +58,7 @@ public class Menu2 implements java.io.Serializable{
 	        return;
       	}
 
-		//BSTrd e = null;
+		
 		try {
 	        FileInputStream fileIn = new FileInputStream("HashID.ser");
 	       	ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -70,7 +68,7 @@ public class Menu2 implements java.io.Serializable{
       	}	
       	catch(IOException i) {
         	i.printStackTrace();
-        	//return;
+        	
     	}	
      	catch(ClassNotFoundException c) {
 	        System.out.println("HashID class not found");
@@ -78,7 +76,7 @@ public class Menu2 implements java.io.Serializable{
 	        return;
       	}
 
-		//MovieHeap f = null;
+		
 		try {
 	        FileInputStream fileIn = new FileInputStream("MovieHeap.ser");
 	       	ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -88,7 +86,7 @@ public class Menu2 implements java.io.Serializable{
       	}	
       	catch(IOException i) {
         	i.printStackTrace();
-        	//return;
+        	
     	}//catches it if the heap is not found	
      	catch(ClassNotFoundException c) {
 	        System.out.println("MovieHeap class not found");
@@ -235,8 +233,8 @@ public class Menu2 implements java.io.Serializable{
 						System.out.println("Your current account name is:"+" "+ customerBST.search(ccinput).getName());
 						System.out.println("What do you want to change your name to?");
 						s.nextLine();
-						String newName = s.nextLine(); //sets new name
-						customerBST.search(ccinput).setName(newName);
+						String newName = s.nextLine(); 
+						customerBST.search(ccinput).setName(newName);//sets new name
 						System.out.println("Your name has been changed to"+" "+newName); //prints new name
 						System.out.println("Press 1 to edit more information or any other number return to the customer page");
 						int ei1=s.nextInt();
@@ -268,7 +266,8 @@ public class Menu2 implements java.io.Serializable{
 					else if(editInput==3){ //code for user to edit their email
 						System.out.println("Enter the new email address you want your account to be under");
 						s.nextLine();
-						String newemail=s.nextLine(); //replaces old email with new one
+						String newemail=s.nextLine(); 
+						customerBST.search(ccinput).setMail(newemail);//replaces old email with new one
 						System.out.println("Your new email address has been changed to"+" "+ newemail);
 						System.out.println("Press 1 to edit more information or any other number return to the customer page");
 						int ei3=s.nextInt();
@@ -294,25 +293,25 @@ public class Menu2 implements java.io.Serializable{
 			else if (pagestatus.equals("Ew")){ //wish list function
 				System.out.println("2. Acess Wishlist");
 				System.out.println("Enter the last 4 digits your credit card number of your account is registered under");
-				int ccinput = s.nextInt(); //finds the user by credit card number
-				if(customerBST.search(ccinput)==null){
+				int ccinput = s.nextInt(); 
+				if(customerBST.search(ccinput)==null){//finds the user by credit card number
 					System.out.println("You are not in our database");
-					pagestatus="Ew";
+					pagestatus="user";
 				}
+				
 				else{ //if the customer is found
-
 
 					System.out.println("Welcome"+" "+ customerBST.search(ccinput).getName());
 
 					if(customerBST.search(ccinput).getWishlist().isEmpty()){
 						System.out.println("Your wishlist is empty");
-						pagestatus="admin"; //returns wish list is empty
+						pagestatus="user"; //returns wish list is empty
 					}
 					else{ //if it isn't empty, prints wishlist
 						System.out.println("Here is your wishlist:");
 						customerBST.search(ccinput).getWishlist().printMovies();
 					}
-				}
+				
 					//commands for wish list
 				System.out.println("What would you like to edit?");
 				System.out.println("1. Add a movie to your wishlist");
@@ -324,15 +323,21 @@ public class Menu2 implements java.io.Serializable{
 
 				int wInput=s.nextInt();
 				if (wInput==1){
-					System.out.println("Here are your choices of movies to add to your wishlist");
-					movieBST.traverse(); //list of movies in database
-					System.out.println("Enter the release date of the movie you want to add to your wishlist");
-					int mchoice = s.nextInt(); //add by release date
-					System.out.println("Enter the index");
-					int ichoice = s.nextInt(); //and desired slot you want movie in
-					customerBST.search(ccinput).getWishlist().insert(movieBST.search(mchoice), ichoice);
-					System.out.println("Movie added to wishlist");
-					pagestatus="user"; //movie is added to wishlist
+					if(movieBST.isEmptyTree()){//if no movies in database
+						System.out.println("There are currently no movies in the database. Sending you back to customer page");
+						pagestatus="user";
+					}
+					else{
+						System.out.println("Here are your choices of movies to add to your wishlist");
+						movieBST.traverse(); //list of movies in database
+						System.out.println("Enter the release date of the movie you want to add to your wishlist");
+						int mchoice = s.nextInt(); //add by release date
+						System.out.println("Enter the index");
+						int ichoice = s.nextInt(); //and desired slot you want movie in
+						customerBST.search(ccinput).getWishlist().insert(movieBST.search(mchoice), ichoice);
+						System.out.println("Movie added to wishlist");
+						pagestatus="user"; //movie is added to wishlist
+					}
 				}
 				else if (wInput ==2){ //lets user watch favorite movie
 					customerBST.search(ccinput).getWishlist().watchMovie();
@@ -346,24 +351,38 @@ public class Menu2 implements java.io.Serializable{
 					System.out.println("Your movie has been deleted");
 
 				}
-				else if(wInput==4){ //shows user their wish list
+				//shows user their wish list
+				else if(wInput==4){ 
+	                 //if wishlist is empty
+					if(customerBST.search(ccinput).getWishlist().isEmpty()){
+						System.out.println("You have nothing in your wishlist. Redirecting you back to the customer menu");
+						pagestatus="user";
+					}
+					else{
+
 					customerBST.search(ccinput).getWishlist().printMovies();
 					pagestatus="user";
+					}
 				}
+
+
+
 				else if (wInput ==5){ //takes user back to user menu
 					pagestatus = "user";
 				}
+			}
 
 
 			}
+		
 
 			else if (pagestatus.equals("Searchmd")){ //search movies by date and instructions for it
 				System.out.println("3. Search Movies By Date");
 				System.out.println("Enter the release date of the movie you want to search.");
 				System.out.println("If the release date is October 25th, 2005 enter the date as:");
 				System.out.println("Year, month, day: 20051025");
-				int dateinput = s.nextInt(); //returns nothing
-				if (movieBST.search(dateinput) == null){//need to find way to see if dateinput is in the table
+				int dateinput = s.nextInt(); 
+				if (movieBST.search(dateinput) == null){//checks to see if movie is in database
 					System.out.println("There is no movie in our database with that date");
 					System.out.println("Enter 1 to return the customer main menu or 2 to try again");
 					dateinput = s.nextInt();
@@ -378,8 +397,7 @@ public class Menu2 implements java.io.Serializable{
 
 				else{ //if it is in the data base
 					System.out.println("That movie in our database is:" + movieBST.search(dateinput).getTitle());
-					//System.out.println("Its ID is:"+ idBST.search(dateinput).getCode()); 
-					//+ "and the Rotten Tomatoes score is:"+ idBST.search(dateinput).getRTscore());
+					
 					System.out.println("Press 1 to return to the customer main menu or 2 to search again");
 					int dateinput1=s.nextInt(); //says it is in the data base
 					if(dateinput1==1){ //either return to the menu
@@ -397,24 +415,22 @@ public class Menu2 implements java.io.Serializable{
 				System.out.println("Enter movie ID");
 				int movie_ID=s.nextInt();
 				if(idhash.lookUp(movie_ID)!= null){ //prints movie you searched for
-					System.out.println("You searched for:"+idhash.lookUp(movie_ID));
-					//System.out.println("Its release date is:"+movieBST.search(movie_ID).getRdate());
-					//System.out.println("its Rotten Tomatoes score is:"+movieBST.search(movie_ID).getRTscore());
-					
+					System.out.println("You searched for:"+idhash.lookUp(movie_ID));		
 				
-			}
+				}
 				else{ //or if the id doesn't match with any in the data base, asks you to try again
 
 					System.out.println("Movie Not Found,try again");
 					
 						
-			}
+				}
 			pagestatus = "user";
-			} //prints movies in order by release date
+			} 
+			//prints movies in order by release date
 			else if (pagestatus.equals("Printm")){
 				if(movieBST.isEmptyTree()==false){ //there are movies in the data base
 					System.out.println("5. Printing Movies By Release Date");
-					movieBST.traverse();//How to print a hashtable
+					movieBST.traverse();
 					pagestatus = "user";
 				}
 				else{ //if there aren't any movies in the database, doesn't print anything
@@ -426,7 +442,7 @@ public class Menu2 implements java.io.Serializable{
 				System.out.println("6. Delete Account");
 				System.out.println("Enter the last 4 digits of the credit card number of the account you want to delete:");
 				int ccinput1 = s.nextInt(); //finds account based off of credit card code
-				if (customerBST.isEmptyTree()==false){
+				if (customerBST.search(ccinput1)!=null){
 					System.out.println("This account is registered to"+" " + customerBST.search(ccinput1).getName());
 					System.out.println("To delete their account enter 1, to enter 2 to return to the user menu");
 					int deleteinput = s.nextInt();
@@ -442,7 +458,7 @@ public class Menu2 implements java.io.Serializable{
 				}
 
 				else{ //or if the credit card code doesn't work, takes you back to user menu
-					System.out.println("There are no customers in the database");
+					System.out.println("There are no customers with that CC number in the database");
 					pagestatus="user";
 				}
 
@@ -504,14 +520,13 @@ public class Menu2 implements java.io.Serializable{
 			else if (pagestatus.equals("Findworst")){ //find movie with the worst rt score
 				if (heap.isEmpty() != true){ //if there are movies in the database
 					System.out.println("The worst movie in your data base is:"+heap.findMin().getTitle());
-					//Not sure why I dont need line above this but it works without it. With it, it prints twice
 					int t=heap.findMin().getRTscore(); //returns movie with the worst rt score
 					System.out.println("Its rotten tomatoes score is:" + t+" "+ "Its movie ID is:"+" "+ heap.findMin().getCode());
 					//gives user choice to delete movie
 					System.out.println("Enter 1 to delete this movie, otherwise you will be redirected to the Admin menu");
 					int decision = s.nextInt();
 				    if (decision == 1){
-				    	//MNode temp = heap.findMin();
+				    	
 						//check to make sure the data structures arent empty first
 					
 						MNode delNode = movieBST.search(heap.findMin().getRdate());
@@ -520,7 +535,7 @@ public class Menu2 implements java.io.Serializable{
 						movieBST.delete(delNode);
 						idhash.delete(heap.findMin().getCode());
 						heap.deleteMin();
-						//System.out.println("The movie has been deleted");
+					
 			     		pagestatus = "admin"; //return user to admin page
 					}
 					else{
@@ -539,8 +554,7 @@ public class Menu2 implements java.io.Serializable{
 			}
 		}
 
-			//Customers are gone when running program again
-			//IF CC NUMBER IS TOO LONG, IT DOESNT WORK!!!
+			
 			else if (pagestatus.equals("Addcust")){ //code to add customer 
 				System.out.println("3. Add Customer");
 				System.out.println("Enter the name of the customer");
@@ -586,7 +600,7 @@ public class Menu2 implements java.io.Serializable{
 					System.out.println("If you want to return to the admin menu, press any other number");
 					int z=s.nextInt(); //gives option to delete another or return to the menu
 					if(z==1){
-						pagestatus="Deletecust"; //delete another
+						pagestatus="Deletecust"; //takes user back to deletecust page
 					}
 					else{
 						pagestatus="admin"; //return to admin menu
@@ -696,7 +710,7 @@ public class Menu2 implements java.io.Serializable{
 
 
 
-			//if cc is too long, doesnt work!
+			
 			else if (pagestatus.equals("Searchcust")){ //search customer with 4-digit cc number
 				System.out.println("6. Search for Customer");
 				System.out.println("Enter the last four digits of the customers credit card number:");
@@ -738,9 +752,11 @@ public class Menu2 implements java.io.Serializable{
 			}
 	}
 
+		//Seralization for when user quits program
+		//saves movies in .ser files 
 		try{
 			FileOutputStream fileOut = 
-			new FileOutputStream("BSTMovie.ser"); //BST of our movies in the database
+			new FileOutputStream("BSTMovie.ser"); 
 			ObjectOutputStream out = 
 			new ObjectOutputStream(fileOut); //creates new file output
 			out.writeObject(movieBST);
